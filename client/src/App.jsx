@@ -1,19 +1,15 @@
-import { CustomizationProvider } from "@twilio-paste/core/customization";
+import { Route, Routes } from "react-router-dom";
 
-import Heading from "./components/Heading/Heading";
-import Body from "./components/Body/Body";
+import Welcome from "./pages/Welcome";
+import Operations from "./pages/Operations";
 
 export default function App() {
   return (
-    <CustomizationProvider
-      elements={{
-        ORANGE_BUTTON: {
-          background: "orangered",
-        },
-      }}
-    >
-      <Heading />
-      <Body />
-    </CustomizationProvider>
+    <>
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/operations" element={<Operations />} />
+      </Routes>
+    </>
   );
 }
