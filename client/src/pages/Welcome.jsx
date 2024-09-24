@@ -67,7 +67,6 @@ const Welcome = () => {
               </Text>
               .{" "}
             </Text>
-            {/* <img src={konduktorLogo} alt="Konduktor Logo" /> */}
           </Flex>
           <Stack orientation="vertical" spacing="space90">
             <Stack orientation="horizontal" spacing="space60">
