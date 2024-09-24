@@ -18,6 +18,7 @@ import { Flex } from "@twilio-paste/core/flex";
 
 import { CodeIcon } from "@twilio-paste/icons/esm/CodeIcon";
 import { WebCapableIcon } from "@twilio-paste/icons/esm/WebCapableIcon";
+import { ProductHomeIcon } from "@twilio-paste/icons/esm/ProductHomeIcon";
 import { DocumentationIcon } from "@twilio-paste/icons/esm/DocumentationIcon";
 import { ProductContactCenterAdminIcon } from "@twilio-paste/icons/esm/ProductContactCenterAdminIcon";
 
@@ -66,6 +67,9 @@ const Operations = () => {
               >
                 Demo
               </SidebarNavigationItem>
+              <SidebarNavigationItem href="/" icon={<ProductHomeIcon decorative={false} title="Welcome" />}>
+                Welcome screen
+              </SidebarNavigationItem>
             </SidebarNavigation>
           </SidebarBody>
         </SidebarBody>
@@ -77,8 +81,6 @@ const Operations = () => {
           />
         </SidebarFooter>
       </Sidebar>
-
-      {/* Must wrap content area */}
       <SidebarPushContentWrapper collapsed={pushSidebarCollapsed} variant="default">
         <main id={mainContentSkipLinkID}>
           <Flex hAlignContent="center" vAlignContent="center">
