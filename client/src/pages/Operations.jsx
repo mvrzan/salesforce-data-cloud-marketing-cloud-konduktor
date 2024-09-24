@@ -51,18 +51,21 @@ const Operations = () => {
             <SidebarNavigation aria-label="main">
               <SidebarNavigationItem
                 href="https://google.com"
+                target="_blank"
                 icon={<DocumentationIcon decorative={false} title="Documentation" />}
               >
                 Documentation
               </SidebarNavigationItem>
               <SidebarNavigationItem
                 href="https://google.com"
+                target="_blank"
                 icon={<CodeIcon decorative={false} title="Architecture" />}
               >
                 Architecture
               </SidebarNavigationItem>
               <SidebarNavigationItem
                 href="https://google.com"
+                target="_blank"
                 icon={<WebCapableIcon decorative={false} title="Demo" />}
               >
                 Demo
