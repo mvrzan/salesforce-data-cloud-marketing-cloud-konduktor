@@ -75,7 +75,22 @@ const Welcome = () => {
               <Button variant="primary">Architecture</Button>
             </Stack>
             <Flex hAlignContent="center">
-              <Button variant="destructive" onClick={startKonduktingHandler}>
+              <Button
+                variant="reset"
+                as="button"
+                color="white"
+                fontWeight="fontWeightBold"
+                backgroundColor="colorBackgroundPrimaryStronger"
+                borderRadius="4px"
+                paddingX="space40"
+                paddingY="space40"
+                _hover={{
+                  backgroundColor: "white",
+                  color: "rgb(18, 28, 45)",
+                  boxShadow: "rgb(2, 99, 224) 0px 0px 0px 1px",
+                }}
+                onClick={startKonduktingHandler}
+              >
                 Start Kondukting
               </Button>
             </Flex>
