@@ -35,7 +35,9 @@ const Welcome = () => {
                 Konduktor!
               </Text>
             </Heading>
-            <Text textAlign="center">Your AI 🤖 ... Just kidding, there is no AI here.</Text>
+            <Text textAlign="center" color="colorTextLinkStronger">
+              Your AI 🤖 ... Just kidding, there is no AI here.
+            </Text>
             <Flex hAlignContent="center">
               <img src={konduktorLogo} alt="Konduktor Logo" height="200px" />
             </Flex>
@@ -48,7 +50,7 @@ const Welcome = () => {
                 Konduktor?
               </Text>
             </Heading>
-            <Text textAlign="center" paddingX="space200">
+            <Text textAlign="center" paddingX="space200" color="colorTextLinkStronger">
               Konduktor is a simple application that helps you fetch your Segments from{" "}
               <Text as="span" color="colorTextDecorative20" fontWeight="fontWeightBold">
                 Data Cloud{" "}
