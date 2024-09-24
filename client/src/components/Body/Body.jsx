@@ -26,7 +26,7 @@ const Body = () => {
   };
 
   return (
-    <Box margin="space60">
+    <Box margin="space60" width="60%">
       <Toaster {...toaster} />
       <Box overflow="auto" padding="space80" width="100%" boxShadow="shadow" borderRadius="borderRadius30">
         <Heading>Konduktor operations</Heading>
