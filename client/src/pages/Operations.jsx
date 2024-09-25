@@ -30,7 +30,6 @@ const Operations = () => {
   const topbarSkipLinkID = useUID();
   const mainContentSkipLinkID = useUID();
 
-  console.log("collapsed", pushSidebarCollapsed);
   return (
     <Box>
       <Sidebar
