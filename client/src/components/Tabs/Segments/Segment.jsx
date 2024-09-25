@@ -10,7 +10,6 @@ const Segment = ({ segment }) => {
   return (
     <Box
       backgroundColor="colorBackground"
-      boxShadow="shadow"
       marginY="space40"
       borderRadius="borderRadius30"
       height="180px"
