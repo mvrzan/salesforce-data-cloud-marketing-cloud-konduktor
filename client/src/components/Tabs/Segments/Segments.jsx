@@ -1,31 +1,46 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
+import { Box } from "@twilio-paste/core/box";
 import { Flex } from "@twilio-paste/core/flex";
+import { Text } from "@twilio-paste/core/text";
 import { Stack } from "@twilio-paste/core/stack";
 import { Button } from "@twilio-paste/core/button";
+import { Spinner } from "@twilio-paste/core/spinner";
 import { Separator } from "@twilio-paste/core/separator";
 
 import Segment from "./Segment";
 import { getSegment } from "../../../utils/getSegment";
 
 const Segments = () => {
-  const [segments, setSegments] = useState([]);
   const [displayedSegments, setDisplayedSegments] = useState([]);
   const navigate = useNavigate();
+  const {
+    data: { formattedSegments, activeSegments, publishedSegments, otherSegments } = {},
+    isLoading,
+    isLoadingError,
+  } = useQuery({
+    queryFn: getSegment,
+    queryKey: ["segments"],
+  });
+
+  useEffect(() => {
+    if (formattedSegments) {
+      setDisplayedSegments(formattedSegments);
+    }
+  }, [formattedSegments]);
 
   const activeSegmentsHandler = () => {
-    setDisplayedSegments(segments.filter((segment) => segment.segmentStatus === "ACTIVE"));
+    setDisplayedSegments(activeSegments);
   };
 
   const publishedSegmentsHandler = () => {
-    setDisplayedSegments(segments.filter((segment) => segment.publishStatus === "SUCCESS"));
+    setDisplayedSegments(publishedSegments);
   };
 
   const otherSegmentsHandler = () => {
-    setDisplayedSegments(
-      segments.filter((segment) => segment.segmentStatus !== "ACTIVE" || segment.publishStatus !== "SUCCESS")
-    );
+    setDisplayedSegments(otherSegments);
   };
 
   const cancelHandler = () => {
@@ -35,16 +50,6 @@ const Segments = () => {
   const nextHandler = () => {
     console.log("Next button clicked");
   };
-
-  useEffect(() => {
-    const fetchSegments = async () => {
-      const fetchedSegments = await getSegment();
-      setSegments(fetchedSegments);
-      setDisplayedSegments(fetchedSegments);
-    };
-
-    fetchSegments();
-  }, []);
 
   return (
     <>
@@ -60,9 +65,23 @@ const Segments = () => {
         </Button>
       </Stack>
       <Separator orientation="horizontal" verticalSpacing="space60" />
-      {displayedSegments?.map((segment, index) => (
-        <Segment key={index} segment={segment} />
-      ))}
+      {isLoadingError && (
+        <Flex hAlignContent="center" vAlignContent="center">
+          <Text fontSize="fontSize50" fontWeight="fontWeightExtrabold" color="colorTextDestructive">
+            There was an error fetching Segment information!
+          </Text>
+        </Flex>
+      )}
+      {isLoading && (
+        <Flex hAlignContent="center" vAlignContent="center">
+          <Spinner decorative={false} title="Loading" size="sizeIcon110" color="colorTextDecorative20" />
+        </Flex>
+      )}
+      <Box overflow="auto" maxHeight="50vh">
+        {displayedSegments?.map((segment, index) => (
+          <Segment key={index} segment={segment} />
+        ))}
+      </Box>
       <Separator orientation="horizontal" verticalSpacing="space80" />
       <Flex hAlignContent="right" vAlignContent="center">
         <Stack orientation="horizontal" spacing="space50">
