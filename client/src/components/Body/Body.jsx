@@ -13,6 +13,7 @@ import GeneralTab from "../Tabs/General/GeneralTab";
 import konduktorLogo from "../../assets/konduktor-logo.png";
 import LayoutAndContentTab from "../Tabs/Layout/LayoutAndContentTab";
 import Segments from "../Tabs/Segments/Segments";
+import EmailTemplateEditor from "../Tabs/EmailTemplate/EmailTemplateEditor";
 
 const Body = () => {
   const [emailName, setEmailName] = useState("");
@@ -29,7 +30,7 @@ const Body = () => {
   };
 
   return (
-    <Box margin="space60" width="60%">
+    <Box margin="space60" width="70%">
       <Toaster {...toaster} />
       <Box overflow="auto" padding="space80" width="100%" boxShadow="shadow" borderRadius="borderRadius30">
         <Flex hAlignContent="center" vAlignContent="center">
@@ -41,6 +42,7 @@ const Body = () => {
         <Tabs selectedId={randomComponentId} baseId="options" orientation="horizontal" state={tab}>
           <TabList aria-label="Vertical product tabs">
             <Tab id={randomComponentId}>Segments</Tab>
+            <Tab>Template Editor</Tab>
             <Tab>Layout & Content</Tab>
             <Tab>General</Tab>
           </TabList>
@@ -49,8 +51,14 @@ const Body = () => {
               <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
                 Data Cloud Segment Information
               </Text>
-              <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
               <Segments tab={tab} />
+            </TabPanel>
+            <TabPanel>
+              <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
+                Email Template Editor
+              </Text>
+              <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
+              <EmailTemplateEditor tab={tab} />
             </TabPanel>
             <TabPanel>
               <Flex hAlignContent="between" vAlignContent="center" marginBottom="space50">
