@@ -23,14 +23,14 @@ import { DocumentationIcon } from "@twilio-paste/icons/esm/DocumentationIcon";
 import { ProductContactCenterAdminIcon } from "@twilio-paste/icons/esm/ProductContactCenterAdminIcon";
 
 import Body from "../components/Body/Body";
-import Heading from "../components/Heading/Heading";
 
 const Operations = () => {
-  const [pushSidebarCollapsed, setPushSidebarCollapsed] = useState(true);
+  const [pushSidebarCollapsed, setPushSidebarCollapsed] = useState(false);
   const sidebarNavigationSkipLinkID = useUID();
   const topbarSkipLinkID = useUID();
   const mainContentSkipLinkID = useUID();
 
+  console.log("collapsed", pushSidebarCollapsed);
   return (
     <Box>
       <Sidebar
@@ -86,12 +86,8 @@ const Operations = () => {
       </Sidebar>
       <SidebarPushContentWrapper collapsed={pushSidebarCollapsed} variant="default">
         <main id={mainContentSkipLinkID}>
-          <Flex hAlignContent="center" vAlignContent="center">
-            <Body>
-              <Heading as="h3" variant="heading30">
-                Operations
-              </Heading>
-            </Body>
+          <Flex hAlignContent="center" vAlignContent="center" width="100%">
+            <Body />
           </Flex>
         </main>
       </SidebarPushContentWrapper>
