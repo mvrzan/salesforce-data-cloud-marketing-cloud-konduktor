@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import EmailEditor from "react-email-editor";
 
+import { Box } from "@twilio-paste/core/box";
 import { Flex } from "@twilio-paste/core/flex";
 import { Text } from "@twilio-paste/core/text";
 import { Stack } from "@twilio-paste/core/stack";
 import { Button } from "@twilio-paste/core/button";
-import { Box } from "@twilio-paste/core/box";
 
 import StatusModal from "./StatusModal";
 import { sendHtml } from "../../../utils/sendHtml";
