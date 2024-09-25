@@ -9,13 +9,25 @@ export const getSegment = async () => {
     }
 
     const data = await response.json();
+
     const formattedSegments = data.segments.map((segment) => ({
       name: segment.displayName,
+      apiName: segment.apiName,
+      dataSpace: segment.dataSpace,
       segmentDefinitionId: segment.marketSegmentDefinitionId,
       segmentId: segment.marketSegmentId,
+      segmentStatus: segment.segmentStatus,
+      publishStatus: segment.publishStatus,
+      segmentType: segment.segmentType,
     }));
 
-    return formattedSegments;
+    const activeSegments = formattedSegments.filter((segment) => segment.segmentStatus === "ACTIVE");
+    const publishedSegments = formattedSegments.filter((segment) => segment.publishStatus === "SUCCESS");
+    const otherSegments = formattedSegments.filter(
+      (segment) => segment.segmentStatus !== "ACTIVE" || segment.publishStatus !== "SUCCESS"
+    );
+
+    return { formattedSegments, activeSegments, publishedSegments, otherSegments };
   } catch (error) {
     console.error("Error loading design", error);
     return [];
