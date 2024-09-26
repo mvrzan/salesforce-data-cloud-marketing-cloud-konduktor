@@ -13,7 +13,7 @@ import { Separator } from "@twilio-paste/core/separator";
 
 import InclusionSegment from "./InclusionSegment";
 import ExclusionSegment from "./ExclusionSegment";
-import useBearStore from "../../hooks/useBearStore";
+import useBearStore from "../../../hooks/useBearStore";
 import { getSegment } from "../../../utils/getSegment";
 
 const GeneralTab = ({ tab }) => {
