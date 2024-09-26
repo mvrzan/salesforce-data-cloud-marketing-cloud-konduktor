@@ -55,6 +55,7 @@ const EmailTemplateEditor = ({ emailName, emailSubject }) => {
         const emailTemplate = {
           emailName,
           emailId: sendHtmlResponse.emailId,
+          emailSubject,
         };
 
         updateEmailTemplates(emailTemplate);
