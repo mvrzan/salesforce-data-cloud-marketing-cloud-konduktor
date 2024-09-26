@@ -10,6 +10,7 @@ import { Tab, Tabs, TabList, TabPanel, TabPanels, useTabState } from "@twilio-pa
 import Segments from "./Tabs/Segments/Segments";
 import GeneralTab from "./Tabs/General/GeneralTab";
 import konduktorLogo from "../assets/konduktor-logo.png";
+import UserInitiatedEmail from "./Tabs/UserInitiated/UserInitiatedEmail";
 import EmailTemplateEditor from "./Tabs/EmailTemplate/EmailTemplateEditor";
 
 const TabsComponent = () => {
@@ -30,6 +31,7 @@ const TabsComponent = () => {
           <TabList aria-label="Vertical product tabs">
             <Tab id={randomComponentId}>Segments</Tab>
             <Tab>Template Editor</Tab>
+            <Tab>User-Initiated Email</Tab>
             <Tab>General</Tab>
           </TabList>
           <TabPanels>
@@ -56,6 +58,13 @@ const TabsComponent = () => {
                 </Box>
               </Flex>
               <EmailTemplateEditor tab={tab} emailName={emailName} />
+            </TabPanel>
+            <TabPanel>
+              <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
+                User Initiated Email Interaction
+              </Text>
+              <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
+              <UserInitiatedEmail tab={tab} />
             </TabPanel>
             <TabPanel>
               <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
