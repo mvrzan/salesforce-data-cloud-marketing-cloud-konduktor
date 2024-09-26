@@ -5,6 +5,7 @@ export const createEmail = async (req, res) => {
     const { accessToken } = await sfmcAuthToken();
     const html = req.body.html;
     const emailName = req.body.emailName;
+    const emailSubject = req.body.emailSubject;
 
     const emailPayload = {
       name: emailName,
@@ -16,11 +17,9 @@ export const createEmail = async (req, res) => {
         html: { content: html },
         text: {},
         subjectline: {
-          content: "Welcome to Our Service!",
+          content: emailSubject,
         },
-        preheader: {
-          content: "and this is a preheader example...",
-        },
+        preheader: {},
       },
       assetType: {
         name: "htmlemail",
