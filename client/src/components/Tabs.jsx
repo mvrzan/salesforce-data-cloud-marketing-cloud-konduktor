@@ -74,7 +74,7 @@ const TabsComponent = () => {
                 User Initiated Email Interaction
               </Text>
               <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
-              <UserInitiatedEmail tab={tab} />
+              <UserInitiatedEmail tab={tab} emailName={emailName} />
             </TabPanel>
           </TabPanels>
         </Tabs>
