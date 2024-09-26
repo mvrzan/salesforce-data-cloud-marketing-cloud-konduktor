@@ -4,14 +4,12 @@ import { Flex } from "@twilio-paste/core";
 import { Box } from "@twilio-paste/core/box";
 import { Text } from "@twilio-paste/core/text";
 import { Input } from "@twilio-paste/core/input";
-import { Heading } from "@twilio-paste/core/heading";
-import { Toaster, useToaster } from "@twilio-paste/core/toast";
 import { useUID } from "@twilio-paste/core/uid-library";
+import { Toaster, useToaster } from "@twilio-paste/core/toast";
 import { Tab, Tabs, TabList, TabPanel, TabPanels, useTabState } from "@twilio-paste/core/tabs";
 
 import GeneralTab from "../Tabs/General/GeneralTab";
 import konduktorLogo from "../../assets/konduktor-logo.png";
-import LayoutAndContentTab from "../Tabs/Layout/LayoutAndContentTab";
 import Segments from "../Tabs/Segments/Segments";
 import EmailTemplateEditor from "../Tabs/EmailTemplate/EmailTemplateEditor";
 
@@ -43,7 +41,6 @@ const Body = () => {
           <TabList aria-label="Vertical product tabs">
             <Tab id={randomComponentId}>Segments</Tab>
             <Tab>Template Editor</Tab>
-            <Tab>Layout & Content</Tab>
             <Tab>General</Tab>
           </TabList>
           <TabPanels>
@@ -54,21 +51,14 @@ const Body = () => {
               <Segments tab={tab} />
             </TabPanel>
             <TabPanel>
-              <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
-                Email Template Editor
-              </Text>
-              <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
-              <EmailTemplateEditor tab={tab} />
-            </TabPanel>
-            <TabPanel>
               <Flex hAlignContent="between" vAlignContent="center" marginBottom="space50">
-                <Heading as="h3" variant="heading30">
-                  Layout & Content
-                </Heading>
+                <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
+                  Email Template Editor
+                </Text>
                 <Box>
                   <Input
-                    id="layout-and-content"
-                    placeholder="Email name"
+                    id="email-template-editor"
+                    placeholder="Email template name"
                     required
                     onChange={(e) => {
                       setEmailName(e.currentTarget.value);
@@ -76,7 +66,7 @@ const Body = () => {
                   />
                 </Box>
               </Flex>
-              <LayoutAndContentTab emailName={emailName} emailCreatedToast={emailCreatedToast} />
+              <EmailTemplateEditor tab={tab} emailName={emailName} />
             </TabPanel>
             <TabPanel>
               <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
