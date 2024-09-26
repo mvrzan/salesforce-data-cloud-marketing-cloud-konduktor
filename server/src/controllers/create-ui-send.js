@@ -3,7 +3,7 @@ import sfmcAuthToken from "../utils/sfmc-auth-token.js";
 export const createUserInitiatedSend = async (req, res) => {
   try {
     const { accessToken } = await sfmcAuthToken();
-    const { customerKey, name, emailId } = req.body;
+    const { customerKey, name, emailId, emailSubject } = req.body;
 
     const soapEnvelope = `<?xml version="1.0" encoding="UTF-8"?>
 <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -14,7 +14,7 @@ export const createUserInitiatedSend = async (req, res) => {
     </s:Header>
     <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
         <CreateRequest xmlns="http://exacttarget.com/wsdl/partnerAPI">
-            <Options></Options>
+            <Options/>
             <Client>
                     <ID>${process.env.SFMC_ACCOUNT_ID}</ID>
                 </Client>
@@ -22,7 +22,7 @@ export const createUserInitiatedSend = async (req, res) => {
                 <q1:ObjectID xsi:nil="true"></q1:ObjectID>
                 <q1:CustomerKey>${customerKey}</q1:CustomerKey>
                 <q1:Name>${name}</q1:Name>
-                <q1:Description>Demo example email</q1:Description>
+                <q1:Description>API generated interaction</q1:Description>
                 <q1:SendClassification>
                     <q1:ObjectID>adb5f00f-09ed-ee11-b85e-d4f5ef027d23</q1:ObjectID>
                 </q1:SendClassification>
@@ -38,7 +38,7 @@ export const createUserInitiatedSend = async (req, res) => {
                     <q1:ID>${emailId}</q1:ID>
                     <q1:ObjectID xsi:nil="true"></q1:ObjectID>
                 </q1:Email>
-                <q1:EmailSubject>Subject</q1:EmailSubject>
+                <q1:EmailSubject>${emailSubject}</q1:EmailSubject>
             </Objects>
         </CreateRequest>
     </s:Body>
@@ -59,6 +59,8 @@ export const createUserInitiatedSend = async (req, res) => {
     }
 
     const data = await response.text();
+
+    console.log("data", data);
 
     res.status(200).send({
       message: "UI email created successfully",
