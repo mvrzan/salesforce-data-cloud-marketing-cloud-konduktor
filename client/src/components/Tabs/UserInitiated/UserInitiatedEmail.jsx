@@ -15,7 +15,7 @@ import { Select, Option } from "@twilio-paste/core/select";
 import useBearStore from "../../../hooks/useBearStore";
 
 const UserInitiatedEmail = () => {
-  const { segments } = useBearStore();
+  const { segments, emailTemplates } = useBearStore();
 
   return (
     <>
@@ -34,14 +34,16 @@ const UserInitiatedEmail = () => {
             </Select>
           </Box>
           <Box>
-            <Label htmlFor="channel">Email Template</Label>
-            <Input
-              aria-describedby="channel_text"
-              id="channel"
-              name="channel"
-              type="text"
-              placeholder="Please select a channel"
-            />
+            <Label htmlFor="email-template-selection">Email Templates</Label>
+            <Select id="email-template-selection" name="email-template-selection" required>
+              {emailTemplates.length > 0 ? (
+                emailTemplates?.map((emailTemplate) => {
+                  return <Option key={emailTemplate.emailId}>{emailTemplate.emailName}</Option>;
+                })
+              ) : (
+                <Option value="no segments">No available Email Templates</Option>
+              )}
+            </Select>
           </Box>
           <Box>
             <Label htmlFor="name" required>
