@@ -1,20 +1,21 @@
 import { useState } from "react";
 
-import { Flex } from "@twilio-paste/core";
+import { Flex } from "@twilio-paste/core/flex";
 import { Box } from "@twilio-paste/core/box";
 import { Text } from "@twilio-paste/core/text";
 import { Input } from "@twilio-paste/core/input";
+import { Stack } from "@twilio-paste/core/stack";
 import { useUID } from "@twilio-paste/core/uid-library";
 import { Tab, Tabs, TabList, TabPanel, TabPanels, useTabState } from "@twilio-paste/core/tabs";
 
 import Segments from "./Tabs/Segments/Segments";
-import GeneralTab from "./Tabs/General/GeneralTab";
 import konduktorLogo from "../assets/konduktor-logo.png";
 import UserInitiatedEmail from "./Tabs/UserInitiated/UserInitiatedEmail";
 import EmailTemplateEditor from "./Tabs/EmailTemplate/EmailTemplateEditor";
 
 const TabsComponent = () => {
   const [emailName, setEmailName] = useState("");
+  const [emailSubject, setEmailSubject] = useState("");
   const randomComponentId = useUID();
   const { ...tab } = useTabState();
 
@@ -32,7 +33,6 @@ const TabsComponent = () => {
             <Tab id={randomComponentId}>Segments</Tab>
             <Tab>Template Editor</Tab>
             <Tab>User-Initiated Email</Tab>
-            <Tab>General</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -47,17 +47,27 @@ const TabsComponent = () => {
                   Email Template Editor
                 </Text>
                 <Box>
-                  <Input
-                    id="email-template-editor"
-                    placeholder="Email template name"
-                    required
-                    onChange={(e) => {
-                      setEmailName(e.currentTarget.value);
-                    }}
-                  />
+                  <Stack orientation="horizontal" spacing="space40">
+                    <Input
+                      id="subject-line"
+                      placeholder="Email subject"
+                      required
+                      onChange={(e) => {
+                        setEmailSubject(e.currentTarget.value);
+                      }}
+                    />
+                    <Input
+                      id="email-template-editor"
+                      placeholder="Email template name"
+                      required
+                      onChange={(e) => {
+                        setEmailName(e.currentTarget.value);
+                      }}
+                    />
+                  </Stack>
                 </Box>
               </Flex>
-              <EmailTemplateEditor tab={tab} emailName={emailName} />
+              <EmailTemplateEditor tab={tab} emailName={emailName} emailSubject={emailSubject} />
             </TabPanel>
             <TabPanel>
               <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
@@ -65,13 +75,6 @@ const TabsComponent = () => {
               </Text>
               <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
               <UserInitiatedEmail tab={tab} />
-            </TabPanel>
-            <TabPanel>
-              <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
-                Data Cloud Segment Information
-              </Text>
-              <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
-              <GeneralTab tab={tab} />
             </TabPanel>
           </TabPanels>
         </Tabs>
