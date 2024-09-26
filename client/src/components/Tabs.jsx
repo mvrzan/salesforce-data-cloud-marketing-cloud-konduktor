@@ -5,31 +5,20 @@ import { Box } from "@twilio-paste/core/box";
 import { Text } from "@twilio-paste/core/text";
 import { Input } from "@twilio-paste/core/input";
 import { useUID } from "@twilio-paste/core/uid-library";
-import { Toaster, useToaster } from "@twilio-paste/core/toast";
 import { Tab, Tabs, TabList, TabPanel, TabPanels, useTabState } from "@twilio-paste/core/tabs";
 
-import GeneralTab from "../Tabs/General/GeneralTab";
-import konduktorLogo from "../../assets/konduktor-logo.png";
-import Segments from "../Tabs/Segments/Segments";
-import EmailTemplateEditor from "../Tabs/EmailTemplate/EmailTemplateEditor";
+import Segments from "./Tabs/Segments/Segments";
+import GeneralTab from "./Tabs/General/GeneralTab";
+import konduktorLogo from "../assets/konduktor-logo.png";
+import EmailTemplateEditor from "./Tabs/EmailTemplate/EmailTemplateEditor";
 
-const Body = () => {
+const TabsComponent = () => {
   const [emailName, setEmailName] = useState("");
   const randomComponentId = useUID();
   const { ...tab } = useTabState();
-  const toaster = useToaster();
-
-  const emailCreatedToast = () => {
-    toaster.push({
-      message: "Email created successfully!",
-      variant: "success",
-      dismissAfter: 5000,
-    });
-  };
 
   return (
     <Box margin="space60" width="70%">
-      <Toaster {...toaster} />
       <Box overflow="auto" padding="space80" width="100%" boxShadow="shadow" borderRadius="borderRadius30">
         <Flex hAlignContent="center" vAlignContent="center">
           <img src={konduktorLogo} alt="Konduktor Logo" height="100px" />
@@ -82,4 +71,4 @@ const Body = () => {
   );
 };
 
-export default Body;
+export default TabsComponent;

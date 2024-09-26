@@ -22,7 +22,7 @@ import { ProductHomeIcon } from "@twilio-paste/icons/esm/ProductHomeIcon";
 import { DocumentationIcon } from "@twilio-paste/icons/esm/DocumentationIcon";
 import { ProductContactCenterAdminIcon } from "@twilio-paste/icons/esm/ProductContactCenterAdminIcon";
 
-import Body from "../components/Body/Body";
+import TabsComponent from "../components/Tabs";
 
 const Operations = () => {
   const [pushSidebarCollapsed, setPushSidebarCollapsed] = useState(false);
@@ -86,7 +86,7 @@ const Operations = () => {
       <SidebarPushContentWrapper collapsed={pushSidebarCollapsed} variant="default">
         <main id={mainContentSkipLinkID}>
           <Flex hAlignContent="center" vAlignContent="center" width="100%">
-            <Body />
+            <TabsComponent />
           </Flex>
         </main>
       </SidebarPushContentWrapper>

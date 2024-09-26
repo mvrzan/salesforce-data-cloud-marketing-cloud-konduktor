@@ -11,7 +11,7 @@ import { Spinner } from "@twilio-paste/core/spinner";
 import StatusModal from "./StatusModal";
 import { sendHtml } from "../../../utils/sendHtml";
 
-const EmailTemplateEditor = ({ emailName, emailCreatedToast }) => {
+const EmailTemplateEditor = ({ emailName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [publishingText, setPublishingText] = useState("");
   const [editorIsReady, setEditorIsReady] = useState(false);
