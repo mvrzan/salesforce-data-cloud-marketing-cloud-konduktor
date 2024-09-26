@@ -74,7 +74,19 @@ const Segments = () => {
       )}
       {isLoading && (
         <Flex hAlignContent="center" vAlignContent="center">
-          <Spinner decorative={false} title="Loading" size="sizeIcon110" color="colorTextDecorative20" />
+          <Stack orientation="vertical" spacing="space80">
+            <Box display="flex" alignContent="center" justifyContent="center">
+              <Spinner decorative={false} title="Loading" size="sizeIcon110" color="colorTextDecorative20" />
+            </Box>
+            <Text
+              fontSize="fontSize50"
+              fontWeight="fontWeightExtrabold"
+              color="colorTextLinkStronger"
+              textAlign="center"
+            >
+              Loading Segment information...
+            </Text>
+          </Stack>
         </Flex>
       )}
       <Box overflow="auto" maxHeight="50vh">
