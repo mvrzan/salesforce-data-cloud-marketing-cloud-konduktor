@@ -10,12 +10,14 @@ import { Spinner } from "@twilio-paste/core/spinner";
 
 import StatusModal from "./StatusModal";
 import { sendHtml } from "../../../utils/sendHtml";
+import useBearStore from "../../../hooks/useBearStore";
 
-const EmailTemplateEditor = ({ emailName }) => {
+const EmailTemplateEditor = ({ emailName, emailSubject }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [publishingText, setPublishingText] = useState("");
   const [editorIsReady, setEditorIsReady] = useState(false);
   const emailEditorRef = useRef(null);
+  const { updateEmailTemplates } = useBearStore();
 
   const exportHtml = () => {
     const unlayer = emailEditorRef.current?.editor;
@@ -40,7 +42,7 @@ const EmailTemplateEditor = ({ emailName }) => {
       const { html } = data;
 
       const fetchHtml = async (html) => {
-        const sendHtmlResponse = await sendHtml({ html, emailName });
+        const sendHtmlResponse = await sendHtml({ html, emailName, emailSubject });
 
         if (!sendHtmlResponse.success) {
           setPublishingText("Failed to create email!");
@@ -49,6 +51,13 @@ const EmailTemplateEditor = ({ emailName }) => {
           }, 2000);
           return;
         }
+
+        const emailTemplate = {
+          emailName,
+          emailId: sendHtmlResponse.emailId,
+        };
+
+        updateEmailTemplates(emailTemplate);
 
         setTimeout(() => {
           setPublishingText(`Email template ${emailName} created successfully!`);
@@ -110,7 +119,11 @@ const EmailTemplateEditor = ({ emailName }) => {
 
       <Flex hAlignContent="right" vAlignContent="center" marginTop="space80">
         <Stack orientation="horizontal" spacing="space40">
-          <Button variant="primary" onClick={publishToMarketingCloudHandler} disabled={emailName === "" ? true : false}>
+          <Button
+            variant="primary"
+            onClick={publishToMarketingCloudHandler}
+            disabled={emailName === "" || emailSubject === "" ? true : false}
+          >
             Publish to Marketing Cloud
           </Button>
           <Button variant="inverse" onClick={exportHtml}>
