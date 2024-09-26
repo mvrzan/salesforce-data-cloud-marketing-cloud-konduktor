@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import useBearStore from "../../../hooks/useBearStore";
 
 import { Box } from "@twilio-paste/core/box";
 import { Flex } from "@twilio-paste/core/flex";
@@ -16,6 +17,7 @@ import { getSegment } from "../../../utils/getSegment";
 const Segments = () => {
   const [displayedSegments, setDisplayedSegments] = useState([]);
   const navigate = useNavigate();
+  const { updateSegments } = useBearStore();
   const {
     data: { formattedSegments, activeSegments, publishedSegments, otherSegments } = {},
     isLoading,
@@ -28,6 +30,7 @@ const Segments = () => {
   useEffect(() => {
     if (formattedSegments) {
       setDisplayedSegments(formattedSegments);
+      updateSegments(publishedSegments);
     }
   }, [formattedSegments]);
 
