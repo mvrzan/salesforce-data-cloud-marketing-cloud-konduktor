@@ -1,6 +1,6 @@
 export const sendHtml = async ({ html, emailName, emailSubject }) => {
   try {
-    const url = "http://localhost:3000/create-email";
+    const url = "/create-email";
 
     const response = await fetch(url, {
       method: "POST",

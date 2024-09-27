@@ -1,6 +1,6 @@
 export const getEmailTemplates = async () => {
   try {
-    const url = "http://localhost:3000/email-templates";
+    const url = "/email-templates";
 
     const response = await fetch(url);
 
