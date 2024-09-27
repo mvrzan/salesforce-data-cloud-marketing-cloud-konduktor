@@ -5,7 +5,7 @@ const useBearStore = create((set) => ({
   emailTemplates: [],
   updateSegments: (incomingSegments) => set(() => ({ segments: [...incomingSegments] })),
   updateEmailTemplates: (incomingEmailTemplates) =>
-    set((state) => ({ emailTemplates: [...state.emailTemplates, incomingEmailTemplates] })),
+    set((state) => ({ emailTemplates: [...state.emailTemplates, ...incomingEmailTemplates] })),
 }));
 
 export default useBearStore;
