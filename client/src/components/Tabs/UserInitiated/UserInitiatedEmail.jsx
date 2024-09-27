@@ -10,15 +10,27 @@ import { Separator } from "@twilio-paste/core/separator";
 import { Select, Option } from "@twilio-paste/core/select";
 
 import { sendUiEmail } from "../../../utils/sendUiEmail";
+import { getEmailTemplates } from "../../../utils/getEmailTemplates";
 import useBearStore from "../../../hooks/useBearStore";
 
 const UserInitiatedEmail = ({ emailName }) => {
-  const { segments, emailTemplates } = useBearStore();
+  const { segments, emailTemplates, updateEmailTemplates } = useBearStore();
   const [selectedSegment, setSelectedSegment] = useState("");
   const [selectedEmailTemplate, setSelectedEmailTemplate] = useState("");
   const [interactionName, setInteractionName] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
+
+    const fetchEmailTemplates = async () => {
+      const templates = await getEmailTemplates();
+      if (isMounted) {
+        updateEmailTemplates(templates);
+      }
+    };
+
+    fetchEmailTemplates();
+
     if (segments.length > 0) {
       setSelectedSegment(segments[0]);
     }
@@ -26,7 +38,11 @@ const UserInitiatedEmail = ({ emailName }) => {
     if (emailTemplates.length > 0) {
       setSelectedEmailTemplate(emailTemplates[0]);
     }
-  }, [segments, emailTemplates]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const submitHandler = () => {
     const payload = {
@@ -125,7 +141,7 @@ const UserInitiatedEmail = ({ emailName }) => {
             variant="primary"
             onClick={submitHandler}
             disabled={
-              selectedEmailTemplate.length === 0 || selectedSegment.length === 0 || interactionName === ""
+              selectedEmailTemplate?.length === 0 || selectedSegment?.length === 0 || interactionName === ""
                 ? true
                 : false
             }
