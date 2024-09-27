@@ -45,9 +45,8 @@ export const getDataExtensions = async (accessToken, segmentName) => {
     const retrieveResponseResults = body.RetrieveResponseMsg.Results;
     const dataExtension = retrieveResponseResults.filter((response) => response.Name.includes(segmentName));
     const dataExtensionCustomObjectId = dataExtension[0].ObjectID;
-    const dataExtensionName = dataExtension[0].Name;
 
-    return { dataExtensionCustomObjectId, dataExtensionName };
+    return dataExtensionCustomObjectId;
   } catch (error) {
     console.error("Error fetching data extensions", error);
     return;
