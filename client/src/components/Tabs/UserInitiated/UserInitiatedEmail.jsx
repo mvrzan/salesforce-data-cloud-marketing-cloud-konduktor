@@ -121,7 +121,15 @@ const UserInitiatedEmail = ({ emailName }) => {
       <Separator orientation="horizontal" verticalSpacing="space80" />
       <Flex hAlignContent="right" vAlignContent="center">
         <Stack orientation="horizontal" spacing="space50">
-          <Button variant="primary" onClick={submitHandler}>
+          <Button
+            variant="primary"
+            onClick={submitHandler}
+            disabled={
+              selectedEmailTemplate.length === 0 || selectedSegment.length === 0 || interactionName === ""
+                ? true
+                : false
+            }
+          >
             Submit to Marketing Cloud
           </Button>
           <Button variant="destructive_secondary">Cancel</Button>
