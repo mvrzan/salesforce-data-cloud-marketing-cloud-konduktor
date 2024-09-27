@@ -1,9 +1,13 @@
 import sfmcAuthToken from "../utils/sfmc-auth-token.js";
+import { getDataExtensions } from "../utils/getDataExtensions.js";
+import { getSendClassifications } from "../utils/getSendClassifications.js";
 
 export const createUserInitiatedSend = async (req, res) => {
   try {
     const { accessToken } = await sfmcAuthToken();
-    const { customerKey, name, emailId, emailSubject } = req.body;
+    const { customerKey, name, emailId, emailSubject, segmentName } = req.body;
+    const { dataExtensionCustomObjectId, dataExtensionName } = await getDataExtensions(accessToken, segmentName);
+    const sendClassificationId = await getSendClassifications(accessToken);
 
     const soapEnvelope = `<?xml version="1.0" encoding="UTF-8"?>
 <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -24,13 +28,13 @@ export const createUserInitiatedSend = async (req, res) => {
                 <q1:Name>${name}</q1:Name>
                 <q1:Description>API generated interaction</q1:Description>
                 <q1:SendClassification>
-                    <q1:ObjectID>adb5f00f-09ed-ee11-b85e-d4f5ef027d23</q1:ObjectID>
+                    <q1:ObjectID>${sendClassificationId}</q1:ObjectID>
                 </q1:SendClassification>
                 <q1:SendDefinitionList>
                     <q1:ObjectID xsi:nil="true"></q1:ObjectID>
-                    <q1:CustomerKey>TestUI</q1:CustomerKey>
+                    <q1:CustomerKey>${dataExtensionName}</q1:CustomerKey>
                     <q1:SendDefinitionListType>SourceList</q1:SendDefinitionListType>
-                    <q1:CustomObjectID>1c0a5d69-ed6e-ef11-a5b4-5cba2c7c09f8</q1:CustomObjectID>
+                    <q1:CustomObjectID>${dataExtensionCustomObjectId}</q1:CustomObjectID>
                     <q1:DataSourceTypeID>CustomObject</q1:DataSourceTypeID>
                     <q1:Name>Keep It 100</q1:Name>
                 </q1:SendDefinitionList>
@@ -44,6 +48,8 @@ export const createUserInitiatedSend = async (req, res) => {
     </s:Body>
 </s:Envelope>`;
 
+    //<q1:CustomObjectID>1c0a5d69-ed6e-ef11-a5b4-5cba2c7c09f8</q1:CustomObjectID>
+
     const response = await fetch(`https://${process.env.SFMC_SUBDOMAIN}.soap.marketingcloudapis.com/Service.asmx`, {
       method: "POST",
       headers: {
@@ -52,6 +58,8 @@ export const createUserInitiatedSend = async (req, res) => {
       body: soapEnvelope,
     });
 
+    console.log("response", await response.text());
+
     if (!response.ok) {
       throw new Error(
         `There was an error when trying to create the User-Initiated Send; error: ${response.statusText}`
@@ -59,8 +67,6 @@ export const createUserInitiatedSend = async (req, res) => {
     }
 
     const data = await response.text();
-
-    console.log("data", data);
 
     res.status(200).send({
       message: "UI email created successfully",
