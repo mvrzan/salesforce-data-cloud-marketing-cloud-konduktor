@@ -1,13 +1,15 @@
 import sfmcAuthToken from "../utils/sfmc-auth-token.js";
 import { getDataExtensions } from "../utils/getDataExtensions.js";
 import { getSendClassifications } from "../utils/getSendClassifications.js";
+import { getDataExtensionCustomerKey } from "../utils/getDataExtensionCustomerKey.js";
 
 export const createUserInitiatedSend = async (req, res) => {
   try {
     const { accessToken } = await sfmcAuthToken();
     const { customerKey, name, emailId, emailSubject, segmentName } = req.body;
-    const { dataExtensionCustomObjectId, dataExtensionName } = await getDataExtensions(accessToken, segmentName);
     const sendClassificationId = await getSendClassifications(accessToken);
+    const dataExtensionCustomObjectId = await getDataExtensions(accessToken, segmentName);
+    const dataExtensionCustomerKey = await getDataExtensionCustomerKey(accessToken, dataExtensionCustomObjectId);
 
     const soapEnvelope = `<?xml version="1.0" encoding="UTF-8"?>
 <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -32,7 +34,7 @@ export const createUserInitiatedSend = async (req, res) => {
                 </q1:SendClassification>
                 <q1:SendDefinitionList>
                     <q1:ObjectID xsi:nil="true"></q1:ObjectID>
-                    <q1:CustomerKey>${dataExtensionName}</q1:CustomerKey>
+                    <q1:CustomerKey>${dataExtensionCustomerKey}</q1:CustomerKey>
                     <q1:SendDefinitionListType>SourceList</q1:SendDefinitionListType>
                     <q1:CustomObjectID>${dataExtensionCustomObjectId}</q1:CustomObjectID>
                     <q1:DataSourceTypeID>CustomObject</q1:DataSourceTypeID>
@@ -47,8 +49,6 @@ export const createUserInitiatedSend = async (req, res) => {
         </CreateRequest>
     </s:Body>
 </s:Envelope>`;
-
-    //<q1:CustomObjectID>1c0a5d69-ed6e-ef11-a5b4-5cba2c7c09f8</q1:CustomObjectID>
 
     const response = await fetch(`https://${process.env.SFMC_SUBDOMAIN}.soap.marketingcloudapis.com/Service.asmx`, {
       method: "POST",
