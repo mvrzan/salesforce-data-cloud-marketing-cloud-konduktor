@@ -1,13 +1,13 @@
-export const sendHtml = async ({ html, emailName }) => {
+export const sendHtml = async ({ html, emailName, emailSubject }) => {
   try {
-    const url = "/create-email";
+    const url = "http://localhost:3000/create-email";
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ html: html, emailName: emailName }),
+      body: JSON.stringify({ html, emailName, emailSubject }),
     });
 
     if (!response.ok) {
