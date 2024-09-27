@@ -2,7 +2,7 @@ const sfmcAuthToken = async () => {
   const clientId = process.env.SFMC_CLIENT_ID;
   const clientSecret = process.env.SFMC_CLIENT_SECRET;
   const grantType = "client_credentials";
-  const scope = "saved_content_read saved_content_write email_read email_send email_write";
+  const scope = "saved_content_read saved_content_write email_read email_send email_write data_extensions_read";
   const accountId = process.env.SFMC_ACCOUNT_ID;
 
   const data = new URLSearchParams({
