@@ -1,13 +1,19 @@
-export const sendUiEmail = async (payload) => {
+export const sendUiEmail = async (data) => {
   try {
     const url = "/create-ui-email";
+    const payload = {
+      name: data.name,
+      emailId: data.emailId,
+      customerKey: data.customerKey,
+      segmentName: data.segmentName,
+    };
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ customerKey: payload.customerKey, name: payload.name, emailId: payload.emailId }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
