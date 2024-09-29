@@ -16,8 +16,7 @@ import EmailTemplateEditor from "./Tabs/EmailTemplate/EmailTemplateEditor";
 const TabsComponent = () => {
   const [emailName, setEmailName] = useState("");
   const [emailSubject, setEmailSubject] = useState("");
-  const randomComponentId = useUID();
-  const { ...tab } = useTabState();
+  const { ...tabState } = useTabState();
 
   return (
     <Box margin="space60" width="70%">
@@ -28,10 +27,10 @@ const TabsComponent = () => {
             Konduktor Operations
           </Text>
         </Flex>
-        <Tabs selectedId={randomComponentId} baseId="options" orientation="horizontal" state={tab}>
+        <Tabs orientation="horizontal" state={tabState}>
           <TabList aria-label="Vertical product tabs">
-            <Tab id={randomComponentId}>Segments</Tab>
-            <Tab>Template Editor</Tab>
+            <Tab id={1}>Segments</Tab>
+            <Tab id={2}>Template Editor</Tab>
             <Tab>User-Initiated Email</Tab>
           </TabList>
           <TabPanels>
@@ -39,7 +38,7 @@ const TabsComponent = () => {
               <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
                 Data Cloud Segment Information
               </Text>
-              <Segments tab={tab} />
+              <Segments tab={tabState} />
             </TabPanel>
             <TabPanel>
               <Flex hAlignContent="between" vAlignContent="center" marginBottom="space50">
@@ -67,14 +66,14 @@ const TabsComponent = () => {
                   </Stack>
                 </Box>
               </Flex>
-              <EmailTemplateEditor tab={tab} emailName={emailName} emailSubject={emailSubject} />
+              <EmailTemplateEditor emailName={emailName} emailSubject={emailSubject} />
             </TabPanel>
             <TabPanel>
               <Text as="h3" fontSize="fontSize50" marginBottom="space50" color="colorTextLinkStronger">
                 User Initiated Email Interaction
               </Text>
               <Text as="h3" fontSize="fontSize90" marginBottom="space50" color="colorTextLinkStronger"></Text>
-              <UserInitiatedEmail tab={tab} emailName={emailName} />
+              <UserInitiatedEmail emailName={emailName} />
             </TabPanel>
           </TabPanels>
         </Tabs>
