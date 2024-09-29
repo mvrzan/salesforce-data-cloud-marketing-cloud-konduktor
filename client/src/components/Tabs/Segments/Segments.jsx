@@ -14,7 +14,7 @@ import { Table, THead, Tr, Th, TBody, Td } from "@twilio-paste/core/table";
 
 import { getSegment } from "../../../utils/getSegment";
 
-const Segments = () => {
+const Segments = ({ tab }) => {
   const [displayedSegments, setDisplayedSegments] = useState([]);
   const navigate = useNavigate();
   const { updateSegments } = useBearStore();
@@ -28,7 +28,6 @@ const Segments = () => {
   });
 
   useEffect(() => {
-    console.log("Hi from Segments");
     if (formattedSegments) {
       setDisplayedSegments(formattedSegments);
       updateSegments(publishedSegments);
@@ -52,7 +51,7 @@ const Segments = () => {
   };
 
   const nextHandler = () => {
-    console.log("Next button clicked");
+    tab.select(2);
   };
 
   return (
