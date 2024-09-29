@@ -10,8 +10,8 @@ import { Stack } from "@twilio-paste/core/stack";
 import { Button } from "@twilio-paste/core/button";
 import { Spinner } from "@twilio-paste/core/spinner";
 import { Separator } from "@twilio-paste/core/separator";
+import { Table, THead, Tr, Th, TBody, Td } from "@twilio-paste/core/table";
 
-import Segment from "./Segment";
 import { getSegment } from "../../../utils/getSegment";
 
 const Segments = () => {
@@ -28,6 +28,7 @@ const Segments = () => {
   });
 
   useEffect(() => {
+    console.log("Hi from Segments");
     if (formattedSegments) {
       setDisplayedSegments(formattedSegments);
       updateSegments(publishedSegments);
@@ -93,9 +94,34 @@ const Segments = () => {
         </Flex>
       )}
       <Box overflow="auto" maxHeight="50vh">
-        {displayedSegments?.map((segment, index) => (
-          <Segment key={index} segment={segment} />
-        ))}
+        <Table striped variant="default" tableLayout="fixed">
+          <THead>
+            <Tr>
+              <Th>Segment Name</Th>
+              <Th>Segment API Name</Th>
+              <Th>Segment ID</Th>
+              <Th>Segment Definition ID</Th>
+              <Th>Data Space</Th>
+              <Th>Segment Type</Th>
+              <Th>Segment Status</Th>
+              <Th>Publish Status</Th>
+            </Tr>
+          </THead>
+          <TBody>
+            {displayedSegments?.map((segment) => (
+              <Tr key={segment.segmentId}>
+                <Td>{segment.name}</Td>
+                <Td>{segment.apiName}</Td>
+                <Td>{segment.segmentId}</Td>
+                <Td>{segment.segmentDefinitionId}</Td>
+                <Td>{segment.dataSpace}</Td>
+                <Td>{segment.segmentType}</Td>
+                <Td>{segment.segmentStatus}</Td>
+                <Td>{segment.publishStatus}</Td>
+              </Tr>
+            ))}
+          </TBody>
+        </Table>
       </Box>
       <Separator orientation="horizontal" verticalSpacing="space80" />
       <Flex hAlignContent="right" vAlignContent="center">
