@@ -75,7 +75,7 @@ const Segments = ({ tab }) => {
           </Text>
         </Flex>
       )}
-      {isLoading && (
+      {isLoading ? (
         <Flex hAlignContent="center" vAlignContent="center">
           <Stack orientation="vertical" spacing="space80">
             <Box display="flex" alignContent="center" justifyContent="center">
@@ -91,37 +91,38 @@ const Segments = ({ tab }) => {
             </Text>
           </Stack>
         </Flex>
-      )}
-      <Box overflow="auto" maxHeight="50vh">
-        <Table striped variant="default" tableLayout="fixed">
-          <THead>
-            <Tr>
-              <Th>Segment Name</Th>
-              <Th>Segment API Name</Th>
-              <Th>Segment ID</Th>
-              <Th>Segment Definition ID</Th>
-              <Th>Data Space</Th>
-              <Th>Segment Type</Th>
-              <Th>Segment Status</Th>
-              <Th>Publish Status</Th>
-            </Tr>
-          </THead>
-          <TBody>
-            {displayedSegments?.map((segment) => (
-              <Tr key={segment.segmentId}>
-                <Td>{segment.name}</Td>
-                <Td>{segment.apiName}</Td>
-                <Td>{segment.segmentId}</Td>
-                <Td>{segment.segmentDefinitionId}</Td>
-                <Td>{segment.dataSpace}</Td>
-                <Td>{segment.segmentType}</Td>
-                <Td>{segment.segmentStatus}</Td>
-                <Td>{segment.publishStatus}</Td>
+      ) : (
+        <Box overflow="auto" maxHeight="50vh">
+          <Table striped variant="default" tableLayout="fixed">
+            <THead>
+              <Tr>
+                <Th>Segment Name</Th>
+                <Th>Segment API Name</Th>
+                <Th>Segment ID</Th>
+                <Th>Segment Definition ID</Th>
+                <Th>Data Space</Th>
+                <Th>Segment Type</Th>
+                <Th>Segment Status</Th>
+                <Th>Publish Status</Th>
               </Tr>
-            ))}
-          </TBody>
-        </Table>
-      </Box>
+            </THead>
+            <TBody>
+              {displayedSegments?.map((segment) => (
+                <Tr key={segment.segmentId}>
+                  <Td>{segment.name}</Td>
+                  <Td>{segment.apiName}</Td>
+                  <Td>{segment.segmentId}</Td>
+                  <Td>{segment.segmentDefinitionId}</Td>
+                  <Td>{segment.dataSpace}</Td>
+                  <Td>{segment.segmentType}</Td>
+                  <Td>{segment.segmentStatus}</Td>
+                  <Td>{segment.publishStatus}</Td>
+                </Tr>
+              ))}
+            </TBody>
+          </Table>
+        </Box>
+      )}
       <Separator orientation="horizontal" verticalSpacing="space80" />
       <Flex hAlignContent="right" vAlignContent="center">
         <Stack orientation="horizontal" spacing="space50">
