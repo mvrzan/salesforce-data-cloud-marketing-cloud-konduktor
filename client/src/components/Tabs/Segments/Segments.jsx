@@ -94,7 +94,7 @@ const Segments = ({ tab }) => {
       ) : (
         <Box overflow="auto" maxHeight="50vh">
           <Table striped variant="default" tableLayout="fixed">
-            <THead>
+            <THead stickyHeader>
               <Tr>
                 <Th>Segment Name</Th>
                 <Th>Segment API Name</Th>
@@ -107,6 +107,30 @@ const Segments = ({ tab }) => {
               </Tr>
             </THead>
             <TBody>
+              {displayedSegments?.map((segment) => (
+                <Tr key={segment.segmentId}>
+                  <Td>{segment.name}</Td>
+                  <Td>{segment.apiName}</Td>
+                  <Td>{segment.segmentId}</Td>
+                  <Td>{segment.segmentDefinitionId}</Td>
+                  <Td>{segment.dataSpace}</Td>
+                  <Td>{segment.segmentType}</Td>
+                  <Td>{segment.segmentStatus}</Td>
+                  <Td>{segment.publishStatus}</Td>
+                </Tr>
+              ))}
+              {displayedSegments?.map((segment) => (
+                <Tr key={segment.segmentId}>
+                  <Td>{segment.name}</Td>
+                  <Td>{segment.apiName}</Td>
+                  <Td>{segment.segmentId}</Td>
+                  <Td>{segment.segmentDefinitionId}</Td>
+                  <Td>{segment.dataSpace}</Td>
+                  <Td>{segment.segmentType}</Td>
+                  <Td>{segment.segmentStatus}</Td>
+                  <Td>{segment.publishStatus}</Td>
+                </Tr>
+              ))}
               {displayedSegments?.map((segment) => (
                 <Tr key={segment.segmentId}>
                   <Td>{segment.name}</Td>
