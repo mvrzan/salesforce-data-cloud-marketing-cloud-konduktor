@@ -73,10 +73,6 @@ const EmailTemplateEditor = ({ emailName, emailSubject }) => {
     });
   };
 
-  const testToast = () => {
-    emailCreatedToast();
-  };
-
   return (
     <>
       {isModalOpen && (
