@@ -56,6 +56,7 @@ const EmailTemplateEditor = ({ emailName, emailSubject }) => {
           emailName,
           emailId: sendHtmlResponse.emailId,
           emailSubject,
+          emailTemplateEditor: true,
         };
 
         updateEmailTemplates(emailTemplate);
