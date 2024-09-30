@@ -132,31 +132,14 @@ const Segments = ({ tab }) => {
                   <Td>{segment.dataSpace}</Td>
                   <Td>{segment.segmentType}</Td>
                   <Td>{segment.segmentStatus}</Td>
-                  <Td>{segment.publishStatus}</Td>
-                </Tr>
-              ))}
-              {displayedSegments?.map((segment) => (
-                <Tr key={segment.segmentId}>
-                  <Td>{segment.name}</Td>
-                  <Td>{segment.apiName}</Td>
-                  <Td>{segment.segmentId}</Td>
-                  <Td>{segment.segmentDefinitionId}</Td>
-                  <Td>{segment.dataSpace}</Td>
-                  <Td>{segment.segmentType}</Td>
-                  <Td>{segment.segmentStatus}</Td>
-                  <Td>{segment.publishStatus}</Td>
-                </Tr>
-              ))}
-              {displayedSegments?.map((segment) => (
-                <Tr key={segment.segmentId}>
-                  <Td>{segment.name}</Td>
-                  <Td>{segment.apiName}</Td>
-                  <Td>{segment.segmentId}</Td>
-                  <Td>{segment.segmentDefinitionId}</Td>
-                  <Td>{segment.dataSpace}</Td>
-                  <Td>{segment.segmentType}</Td>
-                  <Td>{segment.segmentStatus}</Td>
-                  <Td>{segment.publishStatus}</Td>
+                  <Td>
+                    <Text
+                      fontWeight="fontWeightExtrabold"
+                      color={segment.publishStatus === "SUCCESS" ? "colorTextDecorative30" : "colorTextError"}
+                    >
+                      {segment.publishStatus}
+                    </Text>
+                  </Td>
                 </Tr>
               ))}
             </TBody>
