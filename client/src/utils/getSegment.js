@@ -17,7 +17,7 @@ export const getSegment = async () => {
       segmentDefinitionId: segment.marketSegmentDefinitionId,
       segmentId: segment.marketSegmentId,
       segmentStatus: segment.segmentStatus,
-      publishStatus: segment.publishStatus,
+      publishStatus: segment.publishStatus ?? "NOT PUBLISHED",
       segmentType: segment.segmentType,
     }));
 
