@@ -22,29 +22,21 @@ const UserInitiatedEmail = ({ emailName }) => {
   const toaster = useToaster();
 
   useEffect(() => {
-    let isMounted = true;
-
     const fetchEmailTemplates = async () => {
       const templates = await getEmailTemplates();
-      if (isMounted) {
-        updateEmailTemplates(templates);
-      }
+
+      updateEmailTemplates(templates);
+      setSelectedEmailTemplate(templates[0]);
     };
 
     fetchEmailTemplates();
+  }, []);
 
+  useEffect(() => {
     if (segments.length > 0) {
       setSelectedSegment(segments[0]);
     }
-
-    if (emailTemplates.length > 0) {
-      setSelectedEmailTemplate(emailTemplates[0]);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  }, [segments]);
 
   const submitHandler = () => {
     const payload = {
@@ -125,7 +117,11 @@ const UserInitiatedEmail = ({ emailName }) => {
             >
               {emailTemplates.length > 0 ? (
                 emailTemplates?.map((emailTemplate) => {
-                  return <Option key={emailTemplate.emailId}>{emailTemplate.emailName}</Option>;
+                  return (
+                    <Option key={`${emailTemplate.emailId}+${emailTemplate.emailName}`}>
+                      {emailTemplate.emailName}
+                    </Option>
+                  );
                 })
               ) : (
                 <Option value="no segments">No available Email Templates</Option>
