@@ -19,6 +19,7 @@ const UserInitiatedEmail = ({ emailName }) => {
   const [selectedSegment, setSelectedSegment] = useState("");
   const [selectedEmailTemplate, setSelectedEmailTemplate] = useState("");
   const [interactionName, setInteractionName] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const toaster = useToaster();
 
   useEffect(() => {
@@ -39,32 +40,42 @@ const UserInitiatedEmail = ({ emailName }) => {
   }, [segments]);
 
   const submitHandler = () => {
+    setIsButtonDisabled(true);
     const payload = {
       name: interactionName,
       emailId: selectedEmailTemplate.emailId,
       customerKey: emailName,
       segmentName: selectedSegment.name,
-      emailSubject: selectedEmailTemplate.emailSubject,
+      emailSubject: selectedEmailTemplate.emailSubject ?? "User Initiated Email Interaction",
     };
+
+    console.log("payload", payload);
 
     try {
       const sendToMc = async (data) => {
         const request = await sendUiEmail(data);
 
         if (!request.ok) {
-          throw new Error("Failed to send html");
+          setTimeout(() => {
+            setIsButtonDisabled(false);
+          }, 2000);
+          throw new Error("Failed to send submit User-Initiated Email Interaction to Marketing Cloud");
         }
 
         const response = await request.json();
         console.log("response", response.message);
       };
       sendToMc(payload);
-      toaster.push({
-        message: "User Initiated Email Interaction has been successfully created!",
-        variant: "success",
-        dismissAfter: 3000,
-        id: "success-toast",
-      });
+
+      setTimeout(() => {
+        toaster.push({
+          message: "User Initiated Email Interaction has been successfully created!",
+          variant: "success",
+          dismissAfter: 3000,
+          id: "success-toast",
+        });
+        setIsButtonDisabled(false);
+      }, 2000);
     } catch (error) {
       console.error(error);
       toaster.push({
@@ -151,6 +162,7 @@ const UserInitiatedEmail = ({ emailName }) => {
           <Button
             variant="primary"
             onClick={submitHandler}
+            loading={isButtonDisabled}
             disabled={
               selectedEmailTemplate?.length === 0 || selectedSegment?.length === 0 || interactionName === ""
                 ? true
