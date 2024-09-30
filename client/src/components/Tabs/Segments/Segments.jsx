@@ -96,14 +96,30 @@ const Segments = ({ tab }) => {
           <Table striped variant="default" tableLayout="fixed">
             <THead stickyHeader>
               <Tr>
-                <Th>Segment Name</Th>
-                <Th>Segment API Name</Th>
-                <Th>Segment ID</Th>
-                <Th>Segment Definition ID</Th>
-                <Th>Data Space</Th>
-                <Th>Segment Type</Th>
-                <Th>Segment Status</Th>
-                <Th>Publish Status</Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Segment Name</Text>
+                </Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Segment API Name</Text>
+                </Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Segment ID</Text>
+                </Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Segment Definition ID</Text>
+                </Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Data Space</Text>
+                </Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Segment Type</Text>
+                </Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Segment Status</Text>
+                </Th>
+                <Th>
+                  <Text fontWeight="fontWeightExtrabold">Publish Status</Text>
+                </Th>
               </Tr>
             </THead>
             <TBody>
