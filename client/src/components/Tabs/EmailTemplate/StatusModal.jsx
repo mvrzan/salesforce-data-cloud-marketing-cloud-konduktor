@@ -6,7 +6,7 @@ import { useUID } from "@twilio-paste/core/uid-library";
 import { Modal, ModalBody, ModalFooter, ModalFooterActions, ModalHeader, ModalHeading } from "@twilio-paste/core/modal";
 import { Stack } from "@twilio-paste/core";
 
-const SpinnerModal = ({ isModalOpen, setIsModalOpen, publishingText }) => {
+const StatusModal = ({ isModalOpen, setIsModalOpen, publishingText }) => {
   const handleClose = () => setIsModalOpen(false);
   const modalHeadingID = useUID();
 
@@ -40,4 +40,4 @@ const SpinnerModal = ({ isModalOpen, setIsModalOpen, publishingText }) => {
   );
 };
 
-export default SpinnerModal;
+export default StatusModal;
