@@ -131,7 +131,14 @@ const Segments = ({ tab }) => {
                   <Td>{segment.segmentDefinitionId}</Td>
                   <Td>{segment.dataSpace}</Td>
                   <Td>{segment.segmentType}</Td>
-                  <Td>{segment.segmentStatus}</Td>
+                  <Td>
+                    <Text
+                      fontWeight="fontWeightExtrabold"
+                      color={segment.segmentStatus === "ACTIVE" ? "colorTextDecorative20" : "colorTextError"}
+                    >
+                      {segment.segmentStatus}
+                    </Text>
+                  </Td>
                   <Td>
                     <Text
                       fontWeight="fontWeightExtrabold"
