@@ -25,7 +25,7 @@ export const getEmailTemplates = async (_req, res) => {
       ?.filter((template) => template?.assetType?.name === "htmlemail")
       .map((template) => ({
         emailName: template.name,
-        emailId: template.legacyData?.legacyId && template.id,
+        emailId: template.legacyData?.legacyId ?? template.id,
         emailSubject: template.subjectline?.content,
       }));
 
