@@ -58,15 +58,14 @@ export const createUserInitiatedSend = async (req, res) => {
       body: soapEnvelope,
     });
 
-    console.log("response", await response.text());
+    const data = await response.text();
+    console.log("response", data);
 
     if (!response.ok) {
       throw new Error(
         `There was an error when trying to create the User-Initiated Send; error: ${response.statusText}`
       );
     }
-
-    const data = await response.text();
 
     res.status(200).send({
       message: "UI email created successfully",
