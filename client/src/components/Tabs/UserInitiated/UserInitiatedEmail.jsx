@@ -8,6 +8,7 @@ import { Label } from "@twilio-paste/core/label";
 import { Button } from "@twilio-paste/core/button";
 import { Separator } from "@twilio-paste/core/separator";
 import { Select, Option } from "@twilio-paste/core/select";
+import { Toaster, useToaster } from "@twilio-paste/core/toast";
 
 import { sendUiEmail } from "../../../utils/sendUiEmail";
 import { getEmailTemplates } from "../../../utils/getEmailTemplates";
@@ -18,6 +19,7 @@ const UserInitiatedEmail = ({ emailName }) => {
   const [selectedSegment, setSelectedSegment] = useState("");
   const [selectedEmailTemplate, setSelectedEmailTemplate] = useState("");
   const [interactionName, setInteractionName] = useState("");
+  const toaster = useToaster();
 
   useEffect(() => {
     let isMounted = true;
@@ -65,13 +67,26 @@ const UserInitiatedEmail = ({ emailName }) => {
         console.log("response", response.message);
       };
       sendToMc(payload);
+      toaster.push({
+        message: "User Initiated Email Interaction has been successfully created!",
+        variant: "success",
+        dismissAfter: 3000,
+        id: "success-toast",
+      });
     } catch (error) {
       console.error(error);
+      toaster.push({
+        message: `Failed to create User Initiated Email Interaction with the following error: ${error}`,
+        variant: "error",
+        dismissAfter: 3000,
+        id: "error-toast",
+      });
     }
   };
 
   return (
     <>
+      <Toaster left={["space40", "unset", "unset"]} {...toaster} />
       <Stack orientation="vertical" spacing="space60">
         <Stack orientation="horizontal" spacing="space50">
           <Box>
