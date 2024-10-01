@@ -17,8 +17,7 @@ export const createUiEmail = async (data) => {
     });
 
     if (!response.ok) {
-      console.error("response", response);
-      throw new Error("Failed to send html");
+      throw new Error(response.statusText);
     }
 
     return response;
