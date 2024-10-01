@@ -5,7 +5,7 @@ export const getEmailTemplates = async () => {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error("Failed to fetch segment");
+      throw new Error(response.statusText);
     }
 
     const data = await response.json();
