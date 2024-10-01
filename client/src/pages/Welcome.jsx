@@ -10,9 +10,6 @@ import konduktorLogo from "../assets/konduktor-logo.png";
 
 const Welcome = () => {
   const navigate = useNavigate();
-  const startKonduktingHandler = () => {
-    navigate("/operations");
-  };
 
   return (
     <Flex vAlignContent="center" hAlignContent="center" height="100vh">
@@ -91,7 +88,9 @@ const Welcome = () => {
                   color: "rgb(18, 28, 45)",
                   boxShadow: "rgb(2, 99, 224) 0px 0px 0px 1px",
                 }}
-                onClick={startKonduktingHandler}
+                onClick={() => {
+                  navigate("/operations");
+                }}
               >
                 Start Kondukting
               </Button>
