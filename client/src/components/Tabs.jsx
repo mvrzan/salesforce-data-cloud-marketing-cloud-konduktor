@@ -5,7 +5,6 @@ import { Box } from "@twilio-paste/core/box";
 import { Text } from "@twilio-paste/core/text";
 import { Input } from "@twilio-paste/core/input";
 import { Stack } from "@twilio-paste/core/stack";
-import { useUID } from "@twilio-paste/core/uid-library";
 import { Tab, Tabs, TabList, TabPanel, TabPanels, useTabState } from "@twilio-paste/core/tabs";
 
 import Segments from "./Tabs/Segments/Segments";
