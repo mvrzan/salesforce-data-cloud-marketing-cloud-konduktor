@@ -5,12 +5,12 @@ import {
   Sidebar,
   SidebarBody,
   SidebarHeader,
-  SidebarHeaderLabel,
-  SidebarHeaderIconButton,
   SidebarFooter,
-  SidebarCollapseButton,
   SidebarNavigation,
+  SidebarHeaderLabel,
+  SidebarCollapseButton,
   SidebarNavigationItem,
+  SidebarHeaderIconButton,
   SidebarPushContentWrapper,
 } from "@twilio-paste/core/sidebar";
 import { Box } from "@twilio-paste/core/box";
@@ -41,7 +41,7 @@ const Operations = () => {
       >
         <SidebarHeader>
           <SidebarHeaderIconButton as="button" onClick={() => setPushSidebarCollapsed(!pushSidebarCollapsed)}>
-            <ProductContactCenterAdminIcon size="sizeIcon20" decorative={false} title="Go to Flex product homepage" />
+            <ProductContactCenterAdminIcon size="sizeIcon20" decorative={false} title="Toggle sidebar" />
           </SidebarHeaderIconButton>
           <SidebarHeaderLabel>Konduktor</SidebarHeaderLabel>
         </SidebarHeader>
