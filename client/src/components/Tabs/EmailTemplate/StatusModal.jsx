@@ -1,10 +1,10 @@
 import { Flex } from "@twilio-paste/core/flex";
 import { Text } from "@twilio-paste/core/text";
+import { Stack } from "@twilio-paste/core/stack";
 import { Button } from "@twilio-paste/core/button";
 import { Spinner } from "@twilio-paste/core/spinner";
 import { useUID } from "@twilio-paste/core/uid-library";
 import { Modal, ModalBody, ModalFooter, ModalFooterActions, ModalHeader, ModalHeading } from "@twilio-paste/core/modal";
-import { Stack } from "@twilio-paste/core";
 
 const StatusModal = ({ isModalOpen, setIsModalOpen, publishingText }) => {
   const handleClose = () => setIsModalOpen(false);
