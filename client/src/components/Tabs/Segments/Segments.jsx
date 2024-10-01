@@ -20,9 +20,7 @@ const Segments = ({ tab }) => {
     data: { formattedSegments, activeSegments, publishedSegments, otherSegments },
     isLoading,
     error,
-  } = useFetchSegments("/segment");
-
-  console.log("isLoading", isLoading);
+  } = useFetchSegments();
 
   useEffect(() => {
     if (formattedSegments) {
