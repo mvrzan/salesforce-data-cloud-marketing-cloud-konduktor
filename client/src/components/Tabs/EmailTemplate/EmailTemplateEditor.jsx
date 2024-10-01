@@ -9,7 +9,7 @@ import { Button } from "@twilio-paste/core/button";
 import { Spinner } from "@twilio-paste/core/spinner";
 
 import StatusModal from "./StatusModal";
-import { sendHtml } from "../../../utils/sendHtml";
+import { createEmailTemplate } from "../../../utils/createEmailTemplate";
 import useBearStore from "../../../hooks/useBearStore";
 
 const EmailTemplateEditor = ({ emailName, emailSubject }) => {
@@ -42,7 +42,7 @@ const EmailTemplateEditor = ({ emailName, emailSubject }) => {
       const { html } = data;
 
       const fetchHtml = async (html) => {
-        const sendHtmlResponse = await sendHtml({ html, emailName, emailSubject });
+        const sendHtmlResponse = await createEmailTemplate({ html, emailName, emailSubject });
 
         if (!sendHtmlResponse.success) {
           setPublishingText("Failed to create email!");
