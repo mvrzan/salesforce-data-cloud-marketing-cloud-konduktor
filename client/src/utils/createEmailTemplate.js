@@ -1,6 +1,6 @@
-export const sendHtml = async ({ html, emailName, emailSubject }) => {
+export const createEmailTemplate = async ({ html, emailName, emailSubject }) => {
   try {
-    const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/send-html" : "/send-html";
+    const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/create-email" : "/create-email";
 
     const response = await fetch(url, {
       method: "POST",
@@ -9,6 +9,8 @@ export const sendHtml = async ({ html, emailName, emailSubject }) => {
       },
       body: JSON.stringify({ html, emailName, emailSubject }),
     });
+
+    console.log(response);
 
     if (!response.ok) {
       throw new Error("Failed to send html");
