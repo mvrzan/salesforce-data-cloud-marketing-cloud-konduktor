@@ -7,12 +7,18 @@ import { useUID } from "@twilio-paste/core/uid-library";
 import { Modal, ModalBody, ModalFooter, ModalFooterActions, ModalHeader, ModalHeading } from "@twilio-paste/core/modal";
 
 const StatusModal = ({ isModalOpen, setIsModalOpen, publishingText }) => {
-  const handleClose = () => setIsModalOpen(false);
   const modalHeadingID = useUID();
 
   return (
-    <div>
-      <Modal ariaLabelledby={modalHeadingID} isOpen={isModalOpen} onDismiss={handleClose} size="default">
+    <>
+      <Modal
+        ariaLabelledby={modalHeadingID}
+        isOpen={isModalOpen}
+        onDismiss={() => {
+          setIsModalOpen(false);
+        }}
+        size="default"
+      >
         <ModalHeader>
           <ModalHeading as="h3" id={modalHeadingID}>
             Publishing to Marketing Cloud
@@ -30,13 +36,18 @@ const StatusModal = ({ isModalOpen, setIsModalOpen, publishingText }) => {
         </ModalBody>
         <ModalFooter>
           <ModalFooterActions>
-            <Button variant="destructive" onClick={handleClose}>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                setIsModalOpen(false);
+              }}
+            >
               Cancel
             </Button>
           </ModalFooterActions>
         </ModalFooter>
       </Modal>
-    </div>
+    </>
   );
 };
 
