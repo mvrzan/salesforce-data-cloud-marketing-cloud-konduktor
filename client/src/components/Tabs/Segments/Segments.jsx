@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import useBearStore from "../../../hooks/useBearStore";
+import { useFetchSegments } from "../../../hooks/useFetchSegments";
 
 import { Box } from "@twilio-paste/core/box";
 import { Flex } from "@twilio-paste/core/flex";
@@ -12,20 +12,17 @@ import { Spinner } from "@twilio-paste/core/spinner";
 import { Separator } from "@twilio-paste/core/separator";
 import { Table, THead, Tr, Th, TBody, Td } from "@twilio-paste/core/table";
 
-import { getSegment } from "../../../utils/getSegment";
-
 const Segments = ({ tab }) => {
   const [displayedSegments, setDisplayedSegments] = useState([]);
   const navigate = useNavigate();
   const { updateSegments } = useBearStore();
   const {
-    data: { formattedSegments, activeSegments, publishedSegments, otherSegments } = {},
+    data: { formattedSegments, activeSegments, publishedSegments, otherSegments },
     isLoading,
-    isLoadingError,
-  } = useQuery({
-    queryFn: getSegment,
-    queryKey: ["segments"],
-  });
+    error,
+  } = useFetchSegments("/segment");
+
+  console.log("isLoading", isLoading);
 
   useEffect(() => {
     if (formattedSegments) {
@@ -34,41 +31,36 @@ const Segments = ({ tab }) => {
     }
   }, [formattedSegments]);
 
-  const activeSegmentsHandler = () => {
-    setDisplayedSegments(activeSegments);
-  };
-
-  const publishedSegmentsHandler = () => {
-    setDisplayedSegments(publishedSegments);
-  };
-
-  const otherSegmentsHandler = () => {
-    setDisplayedSegments(otherSegments);
-  };
-
-  const cancelHandler = () => {
-    navigate("/");
-  };
-
-  const nextHandler = () => {
-    tab.select(2);
-  };
-
   return (
     <>
       <Stack orientation="horizontal" spacing="space60">
-        <Button variant="primary" onClick={activeSegmentsHandler}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            setDisplayedSegments(activeSegments);
+          }}
+        >
           Active Segments
         </Button>
-        <Button variant="primary" onClick={publishedSegmentsHandler}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            setDisplayedSegments(publishedSegments);
+          }}
+        >
           Published Segments
         </Button>
-        <Button variant="primary" onClick={otherSegmentsHandler}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            setDisplayedSegments(otherSegments);
+          }}
+        >
           Other Segments
         </Button>
       </Stack>
       <Separator orientation="horizontal" verticalSpacing="space60" />
-      {isLoadingError && (
+      {error && (
         <Flex hAlignContent="center" vAlignContent="center">
           <Text fontSize="fontSize50" fontWeight="fontWeightExtrabold" color="colorTextDestructive">
             There was an error fetching Segment information!
@@ -156,10 +148,20 @@ const Segments = ({ tab }) => {
       <Separator orientation="horizontal" verticalSpacing="space80" />
       <Flex hAlignContent="right" vAlignContent="center">
         <Stack orientation="horizontal" spacing="space50">
-          <Button variant="primary" onClick={nextHandler}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              tab.select(2);
+            }}
+          >
             Next
           </Button>
-          <Button variant="destructive_secondary" onClick={cancelHandler}>
+          <Button
+            variant="destructive_secondary"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Cancel
           </Button>
         </Stack>
