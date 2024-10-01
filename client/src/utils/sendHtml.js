@@ -1,6 +1,6 @@
 export const sendHtml = async ({ html, emailName, emailSubject }) => {
   try {
-    const url = "/create-email";
+    const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/send-html" : "/send-html";
 
     const response = await fetch(url, {
       method: "POST",

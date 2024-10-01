@@ -1,6 +1,6 @@
 export const getSegment = async () => {
   try {
-    const url = "/segment";
+    const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/segment" : "/segment";
 
     const response = await fetch(url);
 

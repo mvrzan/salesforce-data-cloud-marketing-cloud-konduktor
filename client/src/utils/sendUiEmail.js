@@ -1,6 +1,6 @@
 export const sendUiEmail = async (data) => {
   try {
-    const url = "/create-ui-email";
+    const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/send-ui-email" : "/send-ui-email";
     const payload = {
       name: data.name,
       emailId: data.emailId,

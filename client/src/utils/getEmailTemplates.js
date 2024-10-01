@@ -1,6 +1,6 @@
 export const getEmailTemplates = async () => {
   try {
-    const url = "/email-templates";
+    const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/email-templates" : "/email-templates";
 
     const response = await fetch(url);
 
