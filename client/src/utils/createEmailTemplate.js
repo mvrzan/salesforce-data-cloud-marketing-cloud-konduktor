@@ -10,10 +10,8 @@ export const createEmailTemplate = async ({ html, emailName, emailSubject }) => 
       body: JSON.stringify({ html, emailName, emailSubject }),
     });
 
-    console.log(response);
-
     if (!response.ok) {
-      throw new Error("Failed to send html");
+      throw new Error(response.statusText);
     }
 
     const data = await response.json();
