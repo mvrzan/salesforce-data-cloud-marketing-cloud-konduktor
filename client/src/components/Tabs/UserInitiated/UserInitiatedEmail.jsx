@@ -10,7 +10,7 @@ import { Separator } from "@twilio-paste/core/separator";
 import { Select, Option } from "@twilio-paste/core/select";
 import { Toaster, useToaster } from "@twilio-paste/core/toast";
 
-import { sendUiEmail } from "../../../utils/sendUiEmail";
+import { createUiEmail } from "../../../utils/createUiEmail";
 import { getEmailTemplates } from "../../../utils/getEmailTemplates";
 import useBearStore from "../../../hooks/useBearStore";
 
@@ -53,7 +53,7 @@ const UserInitiatedEmail = ({ emailName }) => {
 
     try {
       const sendToMc = async (data) => {
-        const request = await sendUiEmail(data);
+        const request = await createUiEmail(data);
 
         if (!request.ok) {
           setTimeout(() => {
