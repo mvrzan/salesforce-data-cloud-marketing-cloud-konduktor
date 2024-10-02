@@ -16,7 +16,7 @@ export const getEmailTemplates = async (_req, res) => {
     );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch email templates");
+      throw new Error(`Failed to fetch email templates: ${response.statusText}`);
     }
 
     const data = await response.json();
@@ -32,6 +32,6 @@ export const getEmailTemplates = async (_req, res) => {
     res.status(200).json(emailTemplates);
   } catch (error) {
     console.error("Error loading email templates", error);
-    res.status(500).send("An error occurred while trying to get the email templates");
+    res.status(500).send(error);
   }
 };
