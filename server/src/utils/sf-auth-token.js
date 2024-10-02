@@ -9,7 +9,6 @@ const sfAuthToken = async () => {
     grant_type: "password",
     username,
     password: password + securityToken,
-    password: securityToken,
     client_id: clientId,
     client_secret: clientSecret,
   }).toString();
