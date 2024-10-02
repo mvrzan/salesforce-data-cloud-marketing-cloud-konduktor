@@ -1,8 +1,8 @@
-import authToken from "../utils/auth-token.js";
+import sfAuthToken from "../utils/sf-auth-token.js";
 
 export const getSegments = async (_req, res) => {
   try {
-    const { accessToken, instanceUrl } = await authToken();
+    const { accessToken, instanceUrl } = await sfAuthToken();
 
     const segmentResponse = await fetch(
       `${instanceUrl}/services/data/${process.env.SALESFORCE_API_VERSION}/ssot/segments`,
@@ -21,7 +21,7 @@ export const getSegments = async (_req, res) => {
 
     res.status(200).json(segment);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("An error occurred while trying to get the segment:", error);
+    console.error("Error getting segments", error);
+    res.status(500).send(error);
   }
 };
