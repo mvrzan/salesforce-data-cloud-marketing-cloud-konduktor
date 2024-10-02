@@ -1,6 +1,6 @@
 import authToken from "../utils/auth-token.js";
 
-export const getSegment = async (req, res) => {
+export const getSegments = async (_req, res) => {
   try {
     const { accessToken, instanceUrl } = await authToken();
 
@@ -22,6 +22,6 @@ export const getSegment = async (req, res) => {
     res.status(200).json(segment);
   } catch (error) {
     console.error(error);
-    res.status(500).send("An error occurred while trying to get the segment");
+    res.status(500).send("An error occurred while trying to get the segment:", error);
   }
 };
