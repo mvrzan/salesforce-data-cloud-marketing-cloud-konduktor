@@ -45,8 +45,10 @@ export const createEmail = async (req, res) => {
       throw new Error(`There was an error while creating the email: ${response.status}`);
     }
 
+    console.log("Email template created successfully!");
+
     res.status(200).send({
-      message: "Email created successfully",
+      message: "Email template created successfully!",
       response: data,
     });
   } catch (error) {
