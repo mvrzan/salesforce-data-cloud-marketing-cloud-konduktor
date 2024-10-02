@@ -49,8 +49,6 @@ const UserInitiatedEmail = ({ emailName }) => {
       emailSubject: selectedEmailTemplate.emailSubject ?? "User Initiated Email Interaction",
     };
 
-    console.log("payload", payload);
-
     try {
       const sendToMc = async (data) => {
         const request = await createUiEmail(data);
