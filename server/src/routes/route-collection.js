@@ -6,7 +6,7 @@ import { createUserInitiatedSend } from "../controllers/create-ui-send.js";
 
 const router = Router();
 
-router.get("/segment", getSegment);
+router.get("/segments", getSegment);
 router.post("/create-email", createEmail);
 router.get("/email-templates", getEmailTemplates);
 router.post("/create-ui-email", createUserInitiatedSend);

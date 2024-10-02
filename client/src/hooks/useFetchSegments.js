@@ -11,7 +11,7 @@ export const useFetchSegments = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/segment" : "/segment";
+        const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/segments" : "/segments";
         const response = await fetch(url, { signal: abortController.signal });
 
         if (!response.ok) {
