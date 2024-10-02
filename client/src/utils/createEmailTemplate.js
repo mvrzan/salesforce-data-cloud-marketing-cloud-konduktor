@@ -17,9 +17,8 @@ export const createEmailTemplate = async ({ html, emailName, emailSubject }) => 
     const data = await response.json();
     const emailId = data.response.legacyData.legacyId;
 
-    return { success: true, emailId };
+    return { emailId };
   } catch (error) {
     console.error("Error sending html", error);
-    return { success: false };
   }
 };
