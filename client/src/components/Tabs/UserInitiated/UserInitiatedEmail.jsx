@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import useBearStore from "../../../hooks/useBearStore";
+import { useFetchTemplates } from "../../../hooks/useFetchTemplates";
+import { usePublishUserInitiatedEmail } from "../../../hooks/usePublishUserInitiatedEmail";
 
 import { Box } from "@twilio-paste/core/box";
 import { Flex } from "@twilio-paste/core/flex";
@@ -6,84 +9,31 @@ import { Input } from "@twilio-paste/core/input";
 import { Stack } from "@twilio-paste/core/stack";
 import { Label } from "@twilio-paste/core/label";
 import { Button } from "@twilio-paste/core/button";
+import { Toaster } from "@twilio-paste/core/toast";
 import { Separator } from "@twilio-paste/core/separator";
 import { Select, Option } from "@twilio-paste/core/select";
-import { Toaster, useToaster } from "@twilio-paste/core/toast";
-
-import { createUiEmail } from "../../../utils/createUiEmail";
-import { getEmailTemplates } from "../../../utils/getEmailTemplates";
-import useBearStore from "../../../hooks/useBearStore";
 
 const UserInitiatedEmail = ({ emailName }) => {
   const { segments, emailTemplates, updateEmailTemplates } = useBearStore();
   const [selectedSegment, setSelectedSegment] = useState("");
   const [selectedEmailTemplate, setSelectedEmailTemplate] = useState("");
   const [interactionName, setInteractionName] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const toaster = useToaster();
+  const { templates } = useFetchTemplates();
+  const { isButtonDisabled, submitHandler, toaster } = usePublishUserInitiatedEmail(
+    interactionName,
+    selectedEmailTemplate,
+    emailName,
+    selectedSegment
+  );
 
   useEffect(() => {
-    const fetchEmailTemplates = async () => {
-      const templates = await getEmailTemplates();
+    updateEmailTemplates(templates);
+    setSelectedEmailTemplate(templates[0]);
 
-      updateEmailTemplates(templates);
-      setSelectedEmailTemplate(templates[0]);
-    };
-
-    fetchEmailTemplates();
-  }, []);
-
-  useEffect(() => {
     if (segments.length > 0) {
       setSelectedSegment(segments[0]);
     }
-  }, [segments]);
-
-  const submitHandler = () => {
-    setIsButtonDisabled(true);
-    const payload = {
-      name: interactionName,
-      emailId: selectedEmailTemplate.emailId,
-      customerKey: emailName,
-      segmentName: selectedSegment.name,
-      emailSubject: selectedEmailTemplate.emailSubject ?? "User Initiated Email Interaction",
-    };
-
-    try {
-      const sendToMc = async (data) => {
-        const request = await createUiEmail(data);
-
-        if (!request.ok) {
-          setTimeout(() => {
-            setIsButtonDisabled(false);
-          }, 2000);
-          throw new Error("Failed to send submit User-Initiated Email Interaction to Marketing Cloud");
-        }
-
-        const response = await request.json();
-        console.log("response", response.message);
-      };
-      sendToMc(payload);
-
-      setTimeout(() => {
-        toaster.push({
-          message: "User Initiated Email Interaction has been successfully created!",
-          variant: "success",
-          dismissAfter: 3000,
-          id: "success-toast",
-        });
-        setIsButtonDisabled(false);
-      }, 2000);
-    } catch (error) {
-      console.error(error);
-      toaster.push({
-        message: `Failed to create User Initiated Email Interaction with the following error: ${error}`,
-        variant: "error",
-        dismissAfter: 3000,
-        id: "error-toast",
-      });
-    }
-  };
+  }, [templates]);
 
   return (
     <>
