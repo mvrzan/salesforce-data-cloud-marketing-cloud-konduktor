@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import EmailEditor from "react-email-editor";
+import { usePublishToMc } from "../../../hooks/usePublishToMc";
 
 import { Box } from "@twilio-paste/core/box";
 import { Flex } from "@twilio-paste/core/flex";
@@ -9,17 +10,20 @@ import { Button } from "@twilio-paste/core/button";
 import { Spinner } from "@twilio-paste/core/spinner";
 
 import StatusModal from "./StatusModal";
-import { createEmailTemplate } from "../../../utils/createEmailTemplate";
-import useBearStore from "../../../hooks/useBearStore";
 
 const EmailTemplateEditor = ({ emailName, emailSubject }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [publishingText, setPublishingText] = useState("");
   const [editorIsReady, setEditorIsReady] = useState(false);
   const emailEditorRef = useRef(null);
-  const { updateEmailTemplates } = useBearStore();
+  const { isLoading, publishingText, publishToMc } = usePublishToMc(emailEditorRef, emailName, emailSubject);
 
-  const exportHtml = () => {
+  useEffect(() => {
+    if (isLoading) {
+      setIsModalOpen(true);
+    }
+  }, [isLoading]);
+
+  const exportHtmlHandler = () => {
     const unlayer = emailEditorRef.current?.editor;
 
     unlayer?.exportHtml((data) => {
@@ -34,48 +38,12 @@ const EmailTemplateEditor = ({ emailName, emailSubject }) => {
   };
 
   const publishToMarketingCloudHandler = () => {
-    setIsModalOpen(true);
-    const unlayerEditor = emailEditorRef.current?.editor;
-
-    unlayerEditor?.exportHtml((data) => {
-      setPublishingText("Publishing to Marketing Cloud!");
-      const { html } = data;
-
-      const fetchHtml = async (html) => {
-        const sendHtmlResponse = await createEmailTemplate({ html, emailName, emailSubject });
-
-        if (!sendHtmlResponse.success) {
-          setPublishingText("Failed to create email!");
-          setTimeout(() => {
-            setIsModalOpen(false);
-          }, 2000);
-          return;
-        }
-
-        const emailTemplate = {
-          emailName,
-          emailId: sendHtmlResponse.emailId,
-          emailSubject,
-          emailTemplateEditor: true,
-        };
-
-        updateEmailTemplates(emailTemplate);
-
-        setTimeout(() => {
-          setPublishingText(`Email template ${emailName} created successfully!`);
-          setTimeout(() => {
-            setIsModalOpen(false);
-          }, 2000);
-        }, 2000);
-      };
-
-      fetchHtml(html);
-    });
+    publishToMc(emailName);
   };
 
   return (
     <>
-      {isModalOpen && (
+      {isLoading && (
         <StatusModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} publishingText={publishingText} />
       )}
       {!editorIsReady && (
@@ -124,7 +92,7 @@ const EmailTemplateEditor = ({ emailName, emailSubject }) => {
           >
             Publish to Marketing Cloud
           </Button>
-          <Button variant="inverse" onClick={exportHtml}>
+          <Button variant="inverse" onClick={exportHtmlHandler}>
             Export HTML
           </Button>
         </Stack>
