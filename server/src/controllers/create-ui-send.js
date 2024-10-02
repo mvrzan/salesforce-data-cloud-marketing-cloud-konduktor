@@ -68,14 +68,11 @@ export const createUserInitiatedSend = async (req, res) => {
     }
 
     res.status(200).send({
-      message: "UI email created successfully",
+      message: "UI email created successfully!",
       response: data,
     });
   } catch (error) {
-    console.error("Error creating User-Initiated Send:", error);
-    res.status(500).send({
-      message: "Server error",
-      error: error.message,
-    });
+    console.error("Error creating User-Initiated Email Interaction:", error);
+    res.status(500).send(error);
   }
 };
