@@ -1,4 +1,4 @@
-const authToken = async () => {
+const sfAuthToken = async () => {
   const username = process.env.SERVICE_USER_USERNAME;
   const password = process.env.SERVICE_USER_PASSWORD;
   const securityToken = process.env.SERVICE_USER_SECURITY_TOKEN;
@@ -9,6 +9,7 @@ const authToken = async () => {
     grant_type: "password",
     username,
     password: password + securityToken,
+    password: securityToken,
     client_id: clientId,
     client_secret: clientSecret,
   }).toString();
@@ -26,17 +27,14 @@ const authToken = async () => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(`There was an error while getting the Salesforce Access Token: ${response.status}`);
+      throw new Error(`There was an error while getting the Salesforce Access Token: ${response.statusText}`);
     }
 
     return { accessToken: data.access_token, instanceUrl: data.instance_url };
   } catch (error) {
-    return {
-      message: "There was an error when getting the auth token.",
-      data: error,
-      status: 500,
-    };
+    console.error(error);
+    return error;
   }
 };
 
-export default authToken;
+export default sfAuthToken;
