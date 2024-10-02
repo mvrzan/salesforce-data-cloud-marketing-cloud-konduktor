@@ -26,16 +26,13 @@ const sfmcAuthToken = async () => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(`There was an error while getting the Marketing Cloud Auth Token: ${response.status}`);
+      throw new Error(`There was an error while getting the Marketing Cloud Auth Token: ${response.statusText}`);
     }
 
     return { accessToken: data.access_token };
   } catch (error) {
-    return {
-      message: "There was an error when getting the auth token.",
-      data: error,
-      status: 500,
-    };
+    console.error(error);
+    return error;
   }
 };
 
