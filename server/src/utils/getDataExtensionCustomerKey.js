@@ -23,6 +23,6 @@ export const getDataExtensionCustomerKey = async (accessToken, dataExtensionId) 
     return customerKey;
   } catch (error) {
     console.error("Error fetching data extensions", error);
-    return;
+    return error;
   }
 };

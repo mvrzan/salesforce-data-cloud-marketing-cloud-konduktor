@@ -33,8 +33,7 @@ export const getDataExtensions = async (accessToken, segmentName) => {
     });
 
     if (!response.ok) {
-      console.log("response", response);
-      throw new Error("Failed to fetch data extensions");
+      throw new Error(`Failed to fetch data extensions; ${response.statusText}`);
     }
 
     const data = await response.text();
@@ -49,6 +48,6 @@ export const getDataExtensions = async (accessToken, segmentName) => {
     return dataExtensionCustomObjectId;
   } catch (error) {
     console.error("Error fetching data extensions", error);
-    return;
+    return error;
   }
 };

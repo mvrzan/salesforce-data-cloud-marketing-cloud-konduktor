@@ -30,8 +30,7 @@ export const getSendClassifications = async (accessToken) => {
     });
 
     if (!response.ok) {
-      console.log("response", response);
-      throw new Error("Failed to fetch data extensions");
+      throw new Error(`Failed to fetch send classifications; error: ${response.statusText}`);
     }
 
     const data = await response.text();
@@ -47,7 +46,7 @@ export const getSendClassifications = async (accessToken) => {
 
     return sendClassificationId;
   } catch (error) {
-    console.error("Error fetching data extensions", error);
-    return;
+    console.error("Error fetching email send classifications:", error);
+    return error;
   }
 };
