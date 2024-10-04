@@ -76,8 +76,20 @@ const Welcome = () => {
               >
                 Documentation
               </Button>
-              <Button variant="primary">Demo</Button>
-              <Button variant="primary">Architecture</Button>
+              <Button
+                as="a"
+                variant="primary"
+                href="https://github.com/mvrzan/salesforce-data-cloud-marketing-cloud-konduktor?tab=readme-ov-file#user-interface-demo"
+              >
+                Demo
+              </Button>
+              <Button
+                as="a"
+                variant="primary"
+                href="https://github.com/mvrzan/salesforce-data-cloud-marketing-cloud-konduktor?tab=readme-ov-file#architecture-diagram"
+              >
+                Architecture
+              </Button>
             </Stack>
             <Flex hAlignContent="center">
               <Button
