@@ -38,6 +38,15 @@
 
 ![](./screenshots/architecture-diagram.png)
 
+The web server offers the following endpoints:
+
+| Endpoint           | Method | Description                                |
+| ------------------ | ------ | ------------------------------------------ |
+| `/segments`        | `GET`  | Retrieve Data Cloud Segment information.   |
+| `/create-email`    | `POST` | Create a custom email template.            |
+| `/email-templates` | `GET`  | Retrieve available email templates.        |
+| `/create-ui-email` | `POST` | Create a User Initiated Email Interaction. |
+
 ## User Interface Demo
 
 ![](./screenshots/konduktor-demo.gif)
