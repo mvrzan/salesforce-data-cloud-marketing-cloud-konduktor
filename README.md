@@ -14,6 +14,11 @@
 - [Table of Contents](#table-of-contents)
   - [How does it work?](#how-does-it-work)
     - [Architecture diagram](#architecture-diagram)
+  - [User Interface Demo](#user-interface-demo)
+  - [Welcome page](#welcome-page)
+  - [Segments](#segments)
+  - [Template Editor](#template-editor)
+  - [User-Initiated Email](#user-initiated-email)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -25,6 +30,24 @@
 ### Architecture diagram
 
 ![](./screenshots/architecture-diagram.png)
+
+## User Interface Demo
+
+![](./screenshots/konduktor-demo.gif)
+
+## Welcome page
+
+## Segments
+
+![](./screenshots/segments-screen.png)
+
+## Template Editor
+
+![](./screenshots/template-editor-screen.png)
+
+## User-Initiated Email
+
+![](./screenshots/user-initiated-screen.png)
 
 # Kudos
 
