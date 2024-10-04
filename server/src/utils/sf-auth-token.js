@@ -1,3 +1,5 @@
+import { readSalesforceToken, writeSalesforceToken } from "../database/token-operations.js";
+
 const sfAuthToken = async () => {
   const username = process.env.SERVICE_USER_USERNAME;
   const password = process.env.SERVICE_USER_PASSWORD;
@@ -21,6 +23,15 @@ const sfAuthToken = async () => {
     body: data,
   };
 
+  const token = await readSalesforceToken();
+
+  if (token) {
+    const currentTime = new Date().getTime();
+    if (currentTime < token.expires_at) {
+      return { accessToken: token.token, instanceUrl: token.instance_url };
+    }
+  }
+
   try {
     const response = await fetch(`${process.env.SALESFORCE_LOGIN_URL}/services/oauth2/token`, config);
     const data = await response.json();
@@ -28,6 +39,8 @@ const sfAuthToken = async () => {
     if (!response.ok) {
       throw new Error(`There was an error while getting the Salesforce Access Token: ${response.statusText}`);
     }
+    const tokenExpiration = +data.issued_at + 7200 * 1000;
+    await writeSalesforceToken(data.access_token, data.instance_url, tokenExpiration);
 
     return { accessToken: data.access_token, instanceUrl: data.instance_url };
   } catch (error) {
