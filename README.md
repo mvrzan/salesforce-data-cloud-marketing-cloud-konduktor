@@ -12,9 +12,19 @@
 
 - [Konduktor - Data Cloud \& Marketing Cloud](#konduktor---data-cloud--marketing-cloud)
 - [Table of Contents](#table-of-contents)
+  - [How does it work?](#how-does-it-work)
+    - [Architecture diagram](#architecture-diagram)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
+
+---
+
+## How does it work?
+
+### Architecture diagram
+
+![](./screenshots/architecture-diagram.png)
 
 # Kudos
 
