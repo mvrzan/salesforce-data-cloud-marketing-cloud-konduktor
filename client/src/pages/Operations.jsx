@@ -49,21 +49,21 @@ const Operations = () => {
           <SidebarBody>
             <SidebarNavigation aria-label="main">
               <SidebarNavigationItem
-                href="https://google.com"
+                href="https://github.com/mvrzan/salesforce-data-cloud-marketing-cloud-konduktor"
                 target="_blank"
                 icon={<DocumentationIcon decorative={false} title="Documentation" />}
               >
                 Documentation
               </SidebarNavigationItem>
               <SidebarNavigationItem
-                href="https://google.com"
+                href="https://github.com/mvrzan/salesforce-data-cloud-marketing-cloud-konduktor?tab=readme-ov-file#architecture-diagram"
                 target="_blank"
                 icon={<CodeIcon decorative={false} title="Architecture" />}
               >
                 Architecture
               </SidebarNavigationItem>
               <SidebarNavigationItem
-                href="https://google.com"
+                href="https://github.com/mvrzan/salesforce-data-cloud-marketing-cloud-konduktor?tab=readme-ov-file#user-interface-demo"
                 target="_blank"
                 icon={<WebCapableIcon decorative={false} title="Demo" />}
               >
