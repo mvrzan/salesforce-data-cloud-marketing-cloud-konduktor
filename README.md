@@ -14,6 +14,7 @@
 - [Table of Contents](#table-of-contents)
   - [How does it work?](#how-does-it-work)
     - [Architecture diagram](#architecture-diagram)
+    - [Feature overview](#feature-overview)
   - [User Interface Demo](#user-interface-demo)
   - [Welcome page](#welcome-page)
   - [Segments](#segments)
@@ -46,6 +47,45 @@ The web server offers the following endpoints:
 | `/create-email`    | `POST` | Create a custom email template.            |
 | `/email-templates` | `GET`  | Retrieve available email templates.        |
 | `/create-ui-email` | `POST` | Create a User Initiated Email Interaction. |
+
+The Konduktor application provides three main functionalities:
+
+- View Data Cloud Segment information
+- Create and publish a custom Email Template to Marketing Cloud
+- Leverage the published Data Cloud Segment information to create User Initiated Email Interactions
+
+The above functionality is achieved by
+
+1. **React Frontend**: The user interface is built using React, providing a dynamic and responsive experience for interacting with Data Cloud and Marketing Cloud features.
+
+2. **Express Server**: The backend is powered by an Express server, which serves the React application and handles API requests. This server acts as an intermediary between the frontend and Salesforce services.
+
+3. **API Integration**: The Express server interfaces with Salesforce's Data Cloud and Marketing Cloud APIs to fetch segment information, create and publish email templates, and manage email interactions.
+
+### Feature overview
+
+1. **View Data Cloud Segment Information**:
+
+   - The React frontend sends a request to the Express server.
+   - The Express server will fetch the Salesforce auth token and store in the Postgres database
+   - The Express server fetches the segment information from Salesforce's Data Cloud API and returns it to the frontend.
+   - The React application displays the segment information to the user.
+
+2. **Create and Publish a Custom Email Template**:
+
+   - The user creates an email template using the React frontend.
+   - The React application sends the template data to the Express server.
+   - The Express server will fetch the Marketing Cloud auth token and store in the Postgres database
+   - The Express server publishes the template to Salesforce's Marketing Cloud using the appropriate API.
+
+3. **Create User Initiated Email Interactions**:
+   - The user selects a Data Cloud segment and initiates an email interaction from the React frontend.
+   - The React application sends the interaction details to the Express server.
+   - The Express server retrieves the access token required for authenticating API requests to Salesforce Marketing Cloud.
+   - The Express server fetches the send classification ID from Salesforce Marketing Cloud using the access token.
+   - The Express server retrieves the custom object ID for the specified Data Cloud segment from Salesforce Marketing Cloud.
+   - The Express server fetches the customer key for the specified Data Cloud segment from Salesforce Marketing Cloud.
+   - The Express server uses the segment information and interaction details to create and manage the email interaction in Salesforce's Marketing Cloud.
 
 ## User Interface Demo
 
