@@ -1,3 +1,5 @@
+import { readMarketingCloudToken, writeMarketingCloudToken } from "../database/token-operations.js";
+
 const sfmcAuthToken = async () => {
   const clientId = process.env.SFMC_CLIENT_ID;
   const clientSecret = process.env.SFMC_CLIENT_SECRET;
@@ -21,6 +23,15 @@ const sfmcAuthToken = async () => {
     body: data,
   };
 
+  const token = await readMarketingCloudToken();
+
+  if (token) {
+    const currentTime = new Date().getTime();
+    if (currentTime < token.expires_at) {
+      return { accessToken: token.token };
+    }
+  }
+
   try {
     const response = await fetch(`${process.env.SFMC_AUTH_URL}/v2/token`, config);
     const data = await response.json();
@@ -28,6 +39,10 @@ const sfmcAuthToken = async () => {
     if (!response.ok) {
       throw new Error(`There was an error while getting the Marketing Cloud Auth Token: ${response.statusText}`);
     }
+
+    const tokenExpiration = new Date().getTime() + data.expires_in * 1000;
+
+    await writeMarketingCloudToken(data.access_token, tokenExpiration);
 
     return { accessToken: data.access_token };
   } catch (error) {
