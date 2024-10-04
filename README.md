@@ -37,6 +37,8 @@
 
 ## Welcome page
 
+![](./screenshots/welcome-screen.png)
+
 ## Segments
 
 ![](./screenshots/segments-screen.png)
