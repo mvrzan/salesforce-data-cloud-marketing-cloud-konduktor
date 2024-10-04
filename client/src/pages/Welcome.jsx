@@ -69,7 +69,13 @@ const Welcome = () => {
           </Flex>
           <Stack orientation="vertical" spacing="space90">
             <Stack orientation="horizontal" spacing="space60">
-              <Button variant="primary">Documentation</Button>
+              <Button
+                as="a"
+                variant="primary"
+                href="https://github.com/mvrzan/salesforce-data-cloud-marketing-cloud-konduktor"
+              >
+                Documentation
+              </Button>
               <Button variant="primary">Demo</Button>
               <Button variant="primary">Architecture</Button>
             </Stack>
