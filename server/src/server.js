@@ -2,14 +2,14 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import router from "./routes/route-collection.js";
-import { initDb } from "./database/initDb.js";
+import { createTablesIfNotExists } from "./database/create-tables.js";
 
 const app = express();
 const corsOptions = {
   origin: "http://localhost:5173",
 };
 
-initDb();
+createTablesIfNotExists();
 
 app.use(express.json());
 app.use(cors(corsOptions));
