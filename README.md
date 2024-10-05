@@ -54,7 +54,7 @@ The Konduktor application provides three main functionalities:
 - Create and publish a custom Email Template to Marketing Cloud
 - Leverage the published Data Cloud Segment information to create User Initiated Email Interactions
 
-The above functionality is achieved by
+The above functionality is achieved by:
 
 1. **React Frontend**: The user interface is built using React, providing a dynamic and responsive experience for interacting with Data Cloud and Marketing Cloud features.
 
