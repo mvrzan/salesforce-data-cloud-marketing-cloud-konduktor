@@ -144,7 +144,7 @@ cd client
 npm install
 ```
 
-Server"
+Server:
 
 ```
 cd salesforce-data-cloud-marketing-cloud-konduktor
